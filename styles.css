@@ -29,7 +29,6 @@ body {
   color: var(--text-dark);
   line-height: 1.6;
   padding-bottom: 80px;
-  padding-top: 60px;
   /* Adjusted for compact header */
 }
 
@@ -648,10 +647,6 @@ input:checked+.slider:before {
 }
 
 @media (max-width: 480px) {
-  body {
-    padding-top: 70px;
-  }
-
   .compact-header {
     padding: 8px 0;
   }
