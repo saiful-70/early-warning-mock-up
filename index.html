@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EWS App for Aquaculture Farmers</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Compact Header -->
+    <header class="compact-header">
+      <div class="header-info">
+        <div class="app-title">
+          <i class="fas fa-fish"></i>
+          <span>EWS</span>
+        </div>
+        <div class="user-info">
+          <span class="location" id="current-location">Dhaka</span>
+          <span class="month" id="current-month">September</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sections (hidden/shown via JS) -->
+    <main class="container">
+      <!-- Mobile-First Dashboard -->
+      <section id="dashboard" class="active">
+        <div class="dashboard-mobile">
+          <!-- Quick Stats Row -->
+          <div class="stats-row">
+            <div class="stat-item alerts-stat">
+              <div class="stat-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number" id="alert-count">0</span>
+                <span class="stat-label">Alerts</span>
+              </div>
+            </div>
+            <div class="stat-item events-stat">
+              <div class="stat-icon">
+                <i class="fas fa-calendar"></i>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number" id="event-count">0</span>
+                <span class="stat-label">Events</span>
+              </div>
+            </div>
+            <div class="stat-item weather-stat">
+              <div class="stat-icon">
+                <i class="fas fa-thermometer-half"></i>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number" id="weather-temp">--</span>
+                <span class="stat-label">Temperature</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Cards -->
+          <div class="mobile-cards">
+            <div class="mobile-card priority-card">
+              <div class="card-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Priority Alert
+              </div>
+              <div class="card-body" id="priority-alert">
+                Loading...
+              </div>
+            </div>
+
+            <div class="mobile-card today-tip-card">
+              <div class="card-title">
+                <i class="fas fa-lightbulb"></i>
+                Today's Tip
+              </div>
+              <div class="card-body" id="today-tip">
+                Loading...
+              </div>
+            </div>
+
+            <div class="mobile-card weather-card" id="weather-mobile-card" style="display: none;">
+              <div class="card-title">
+                <i class="fas fa-cloud-sun"></i>
+                Weather Alert
+              </div>
+              <div class="card-body" id="weather-mobile">
+                Loading...
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="alerts">
+        <div class="section-header">
+          <h2><i class="fas fa-bell"></i> Personalized Alerts</h2>
+        </div>
+        <div id="alerts-list"></div>
+      </section>
+
+      <section id="calendar">
+        <div class="section-header">
+          <h2><i class="fas fa-calendar-check"></i> Disaster Event Calendar</h2>
+        </div>
+        <div class="form-group">
+          <label for="month-select">
+            <i class="fas fa-calendar"></i> Select Month:
+          </label>
+          <select id="month-select" class="styled-select">
+            <option value="September">September 2025</option>
+            <option value="October">October 2025</option>
+            <option value="November">November 2025</option>
+          </select>
+        </div>
+        <div id="calendar-details"></div>
+      </section>
+
+      <section id="tips">
+        <div class="section-header">
+          <h2><i class="fas fa-seedling"></i> Fish Management Tips</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fish-select">
+              <i class="fas fa-fish"></i> Select Fish:
+            </label>
+            <select id="fish-select" class="styled-select">
+              <option value="Tilapia">Tilapia</option>
+              <option value="Carp">Carp</option>
+              <option value="Shrimp">Shrimp</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="week-select">
+              <i class="fas fa-clock"></i> Select Week:
+            </label>
+            <select id="week-select" class="styled-select">
+              <option value="1">Week 1</option>
+              <option value="2">Week 2</option>
+              <option value="3">Week 3</option>
+              <option value="4">Week 4</option>
+            </select>
+          </div>
+        </div>
+        <div id="tips-details"></div>
+      </section>
+
+      <section id="district">
+        <div class="section-header">
+          <h2>
+            <i class="fas fa-broadcast-tower"></i> District Alerts & Weather
+          </h2>
+        </div>
+        <div id="district-list"></div>
+        <div id="weather-details" style="display: none">
+          <div class="weather-card">
+            <h3><i class="fas fa-thermometer-half"></i> Weather Prediction</h3>
+            <div class="weather-status">
+              <span class="status-badge active">Activated due to alerts</span>
+            </div>
+            <p id="weather-info"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <button
+        class="nav-btn active"
+        onclick="showSection('dashboard')"
+        data-section="dashboard"
+      >
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('alerts')"
+        data-section="alerts"
+      >
+        <i class="fas fa-bell"></i>
+        <span>Alerts</span>
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('calendar')"
+        data-section="calendar"
+      >
+        <i class="fas fa-calendar"></i>
+        <span>Calendar</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('tips')" data-section="tips">
+        <i class="fas fa-lightbulb"></i>
+        <span>Tips</span>
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('district')"
+        data-section="district"
+      >
+        <i class="fas fa-cloud-sun"></i>
+        <span>Weather</span>
+      </button>
+    </nav>
+
+    <script src="script.js"></script>
+  </body>
+</html>
