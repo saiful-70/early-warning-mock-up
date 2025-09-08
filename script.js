@@ -49,6 +49,26 @@ const mockData = {
   }
 };
 
+// App Settings
+let appSettings = {
+  selectedDistrict: 'Dhaka',
+  currentMonth: 'September',
+  notifications: {
+    highRisk: true,
+    weather: true,
+    tips: true
+  }
+};
+
+// Get current month name
+function getCurrentMonth() {
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  return months[new Date().getMonth()];
+}
+
 // Function to show/hide sections
 function showSection(sectionId) {
   // Remove active class from all sections and nav buttons
@@ -57,7 +77,8 @@ function showSection(sectionId) {
 
   // Add active class to selected section and nav button
   document.getElementById(sectionId).classList.add('active');
-  document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+  const navBtn = document.querySelector(`[data-section="${sectionId}"]`);
+  if (navBtn) navBtn.classList.add('active');
 
   // Load section-specific data
   if (sectionId === 'dashboard') loadDashboard();
@@ -65,69 +86,92 @@ function showSection(sectionId) {
   if (sectionId === 'calendar') loadCalendar();
   if (sectionId === 'tips') loadTips();
   if (sectionId === 'district') loadDistrict();
-}
-
-// Load Dashboard
+  if (sectionId === 'settings') loadSettings();
+}// Load Mobile Dashboard
 function loadDashboard() {
-  // Alerts summary
-  const highAlert = mockData.personalizedAlerts.find(a => a.risk === 'High');
-  document.getElementById('alert-summary').innerHTML = highAlert ?
-    `<div class="risk-${highAlert.risk.toLowerCase()}">
-      <i class="fas fa-exclamation-triangle"></i> 
-      ${highAlert.event} in ${highAlert.location} (${highAlert.risk} Risk)
-    </div>` : '<div class="no-alerts">No high-priority alerts</div>';
+  updateHeaderInfo();
 
-  // Calendar summary (current month, assume September)
-  const currentEvents = mockData.calendarEvents.September;
-  document.getElementById('calendar-summary').innerHTML = currentEvents.length > 0 ?
-    `<div class="event-summary">
-      <i class="fas fa-calendar-day"></i> 
-      ${currentEvents[0].event} - ${currentEvents[0].location} (${currentEvents[0].risk} Risk)
-    </div>` : '<div class="no-events">No upcoming events</div>';
+  // Update Stats Row
+  const alertCount = mockData.personalizedAlerts.filter(a =>
+    a.location === appSettings.selectedDistrict || a.risk === 'High'
+  ).length;
 
-  // Tips summary (default Tilapia Week 1)
-  document.getElementById('tips-summary').innerHTML = `
-    <div class="tip-summary">
-      <i class="fas fa-fish"></i> 
-      <strong>Tilapia - Week 1:</strong> ${mockData.fishTips.Tilapia[1]}
+  const eventCount = mockData.calendarEvents[appSettings.currentMonth] ?
+    mockData.calendarEvents[appSettings.currentMonth].length : 0;
+
+  document.getElementById('alert-count').textContent = alertCount;
+  document.getElementById('event-count').textContent = eventCount;
+  document.getElementById('weather-temp').textContent = mockData.weather.temperature;
+
+  // Priority Alert
+  const priorityAlert = mockData.personalizedAlerts.find(a =>
+    a.risk === 'High' && (a.location === appSettings.selectedDistrict || a.risk === 'High')
+  );
+
+  if (priorityAlert) {
+    document.getElementById('priority-alert').innerHTML = `
+      <div class="alert-content">
+        <div class="alert-header">
+          <span class="risk-badge ${priorityAlert.risk.toLowerCase()}">${priorityAlert.risk}</span>
+          <span class="location-badge">${priorityAlert.location}</span>
+        </div>
+        <div class="alert-text">${priorityAlert.event}</div>
+        <div class="alert-time">Active now</div>
+      </div>`;
+  } else {
+    document.getElementById('priority-alert').innerHTML = `
+      <div class="no-alert">
+        <i class="fas fa-check-circle"></i>
+        <span>No high priority alerts for ${appSettings.selectedDistrict}</span>
+      </div>`;
+  }
+
+  // Today's Tip
+  const currentWeek = Math.ceil(new Date().getDate() / 7);
+  const tip = mockData.fishTips.Tilapia[currentWeek] || mockData.fishTips.Tilapia[1];
+  document.getElementById('today-tip').innerHTML = `
+    <div class="tip-content">
+      <div class="tip-header">
+        <span class="fish-badge">Tilapia</span>
+        <span class="week-badge">Week ${currentWeek}</span>
+      </div>
+      <div class="tip-text">${tip}</div>
     </div>`;
 
-  // District summary
-  const districtAlert = mockData.districtAlerts[0];
-  document.getElementById('district-summary').innerHTML = districtAlert ?
-    `<div class="risk-${districtAlert.risk.toLowerCase()}">
-      <i class="fas fa-broadcast-tower"></i> 
-      ${districtAlert.event} in ${districtAlert.location} (${districtAlert.risk} Risk)
-    </div>` : '<div class="no-alerts">No district alerts</div>';
-
-  // Weather if alerts present
+  // Weather Alert (if any district alerts)
   if (mockData.districtAlerts.length > 0) {
-    document.getElementById('weather-card').style.display = 'block';
+    document.getElementById('weather-mobile-card').style.display = 'block';
     const w = mockData.weather;
-    document.getElementById('weather-summary').innerHTML = `
-      <div class="weather-info">
-        <div class="weather-main">
-          <i class="fas fa-thermometer-half"></i> ${w.temperature} | 
-          <i class="fas fa-tint"></i> ${w.humidity} | 
-          <i class="fas fa-cloud-rain"></i> ${w.precipitation}
-        </div>
-        <div class="weather-details">
-          <i class="fas fa-wind"></i> Wind: ${w.wind} | Location: ${w.location}
-        </div>
-        <div class="risk-${w.risk.toLowerCase()}">
-          <i class="fas fa-exclamation-circle"></i> Risk Level: ${w.risk}
+    document.getElementById('weather-mobile').innerHTML = `
+      <div class="weather-content">
+        <div class="weather-main">${w.temperature} • ${w.humidity} humidity</div>
+        <div class="weather-detail">${w.precipitation} expected</div>
+        <div class="weather-risk ${w.risk.toLowerCase()}">
+          <i class="fas fa-exclamation-triangle"></i> ${w.risk} Risk
         </div>
       </div>`;
   } else {
-    document.getElementById('weather-card').style.display = 'none';
+    document.getElementById('weather-mobile-card').style.display = 'none';
   }
+}
+
+// Update Header Information
+function updateHeaderInfo() {
+  document.getElementById('current-location').textContent = appSettings.selectedDistrict;
+  document.getElementById('current-month').textContent = appSettings.currentMonth;
 }
 
 // Load Personalized Alerts
 function loadAlerts() {
   const list = document.getElementById('alerts-list');
   list.innerHTML = '';
-  mockData.personalizedAlerts.forEach(alert => {
+
+  // Filter alerts based on selected district and show high-priority alerts from any location
+  const relevantAlerts = mockData.personalizedAlerts.filter(alert =>
+    alert.location === appSettings.selectedDistrict || alert.risk === 'High'
+  );
+
+  relevantAlerts.forEach(alert => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
@@ -147,16 +191,26 @@ function loadAlerts() {
       </div>`;
     list.appendChild(card);
   });
+
+  if (relevantAlerts.length === 0) {
+    list.innerHTML = '<div class="no-alerts">No alerts for your selected district.</div>';
+  }
 }
 
 // Load Calendar
 function loadCalendar() {
   const select = document.getElementById('month-select');
   const details = document.getElementById('calendar-details');
+
+  // Set default to current month from settings
+  select.value = appSettings.currentMonth;
+
   function update() {
     details.innerHTML = '';
     const month = select.value;
-    mockData.calendarEvents[month].forEach(event => {
+    const events = mockData.calendarEvents[month] || [];
+
+    events.forEach(event => {
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
@@ -174,6 +228,10 @@ function loadCalendar() {
         </div>`;
       details.appendChild(card);
     });
+
+    if (events.length === 0) {
+      details.innerHTML = '<div class="no-events">No events scheduled for this month.</div>';
+    }
   }
   select.onchange = update;
   update(); // Initial load
@@ -276,5 +334,90 @@ function viewAlertDetails(eventName) {
   alert(`Viewing details for: ${eventName}\n\nThis would typically open a detailed view with more information about the alert, recommended actions, and real-time updates.`);
 }
 
+// Load Settings
+function loadSettings() {
+  // Set current values
+  document.getElementById('district-select').value = appSettings.selectedDistrict;
+
+  const defaultMonthSelect = document.getElementById('default-month-select');
+  if (appSettings.currentMonth === getCurrentMonth()) {
+    defaultMonthSelect.value = 'current';
+  } else {
+    defaultMonthSelect.value = appSettings.currentMonth;
+  }
+
+  // Set notification toggles
+  document.getElementById('high-risk-toggle').checked = appSettings.notifications.highRisk;
+  document.getElementById('weather-toggle').checked = appSettings.notifications.weather;
+  document.getElementById('tips-toggle').checked = appSettings.notifications.tips;
+}
+
+// Save Settings
+function saveSettings() {
+  const districtSelect = document.getElementById('district-select');
+  const defaultMonthSelect = document.getElementById('default-month-select');
+
+  // Update app settings
+  appSettings.selectedDistrict = districtSelect.value;
+
+  if (defaultMonthSelect.value === 'current') {
+    appSettings.currentMonth = getCurrentMonth();
+  } else {
+    appSettings.currentMonth = defaultMonthSelect.value;
+  }
+
+  appSettings.notifications.highRisk = document.getElementById('high-risk-toggle').checked;
+  appSettings.notifications.weather = document.getElementById('weather-toggle').checked;
+  appSettings.notifications.tips = document.getElementById('tips-toggle').checked;
+
+  // Save to localStorage (in real app, would sync with backend)
+  localStorage.setItem('ewsSettings', JSON.stringify(appSettings));
+
+  // Update header
+  updateHeaderInfo();
+
+  // Show success message
+  showSuccessMessage('Settings saved successfully!');
+
+  // Refresh dashboard if it's currently active
+  if (document.getElementById('dashboard').classList.contains('active')) {
+    loadDashboard();
+  }
+}
+
+// Show success message
+function showSuccessMessage(message) {
+  const successDiv = document.createElement('div');
+  successDiv.className = 'success-message';
+  successDiv.innerHTML = `
+    <i class="fas fa-check-circle"></i>
+    <span>${message}</span>
+  `;
+
+  document.body.appendChild(successDiv);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    successDiv.remove();
+  }, 3000);
+}
+
+// Initialize app
+function initializeApp() {
+  // Load settings from localStorage
+  const savedSettings = localStorage.getItem('ewsSettings');
+  if (savedSettings) {
+    appSettings = { ...appSettings, ...JSON.parse(savedSettings) };
+  }
+
+  // Set current month if not set
+  if (!appSettings.currentMonth) {
+    appSettings.currentMonth = getCurrentMonth();
+  }
+
+  // Initialize dashboard
+  loadDashboard();
+}
+
 // Initial Load
-showSection('dashboard');
+initializeApp();

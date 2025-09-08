@@ -72,9 +72,7 @@
                 <i class="fas fa-exclamation-triangle"></i>
                 Priority Alert
               </div>
-              <div class="card-body" id="priority-alert">
-                Loading...
-              </div>
+              <div class="card-body" id="priority-alert">Loading...</div>
             </div>
 
             <div class="mobile-card today-tip-card">
@@ -82,35 +80,29 @@
                 <i class="fas fa-lightbulb"></i>
                 Today's Tip
               </div>
-              <div class="card-body" id="today-tip">
-                Loading...
-              </div>
+              <div class="card-body" id="today-tip">Loading...</div>
             </div>
 
-            <div class="mobile-card weather-card" id="weather-mobile-card" style="display: none;">
+            <div
+              class="mobile-card weather-card"
+              id="weather-mobile-card"
+              style="display: none"
+            >
               <div class="card-title">
                 <i class="fas fa-cloud-sun"></i>
                 Weather Alert
               </div>
-              <div class="card-body" id="weather-mobile">
-                Loading...
-              </div>
+              <div class="card-body" id="weather-mobile">Loading...</div>
             </div>
           </div>
         </div>
       </section>
 
       <section id="alerts">
-        <div class="section-header">
-          <h2><i class="fas fa-bell"></i> Personalized Alerts</h2>
-        </div>
         <div id="alerts-list"></div>
       </section>
 
       <section id="calendar">
-        <div class="section-header">
-          <h2><i class="fas fa-calendar-check"></i> Disaster Event Calendar</h2>
-        </div>
         <div class="form-group">
           <label for="month-select">
             <i class="fas fa-calendar"></i> Select Month:
@@ -125,9 +117,6 @@
       </section>
 
       <section id="tips">
-        <div class="section-header">
-          <h2><i class="fas fa-seedling"></i> Fish Management Tips</h2>
-        </div>
         <div class="form-row">
           <div class="form-group">
             <label for="fish-select">
@@ -155,11 +144,6 @@
       </section>
 
       <section id="district">
-        <div class="section-header">
-          <h2>
-            <i class="fas fa-broadcast-tower"></i> District Alerts & Weather
-          </h2>
-        </div>
         <div id="district-list"></div>
         <div id="weather-details" style="display: none">
           <div class="weather-card">
@@ -168,6 +152,74 @@
               <span class="status-badge active">Activated due to alerts</span>
             </div>
             <p id="weather-info"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Section -->
+      <section id="settings">
+        <div class="settings-container">
+          <div class="settings-group">
+            <h3><i class="fas fa-map-marker-alt"></i> Location Settings</h3>
+            <div class="form-group">
+              <label for="district-select">Select Your District:</label>
+              <select id="district-select" class="styled-select">
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chittagong">Chittagong</option>
+                <option value="Sylhet">Sylhet</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Barisal">Barisal</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Mymensingh">Mymensingh</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <h3><i class="fas fa-calendar-alt"></i> Default Settings</h3>
+            <div class="form-group">
+              <label for="default-month-select">Default Month View:</label>
+              <select id="default-month-select" class="styled-select">
+                <option value="current">Current Month</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <h3><i class="fas fa-bell"></i> Notification Settings</h3>
+            <div class="toggle-group">
+              <div class="toggle-item">
+                <span>High Risk Alerts</span>
+                <label class="toggle">
+                  <input type="checkbox" id="high-risk-toggle" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="toggle-item">
+                <span>Weather Updates</span>
+                <label class="toggle">
+                  <input type="checkbox" id="weather-toggle" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="toggle-item">
+                <span>Daily Tips</span>
+                <label class="toggle">
+                  <input type="checkbox" id="tips-toggle" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-actions">
+            <button class="save-btn" onclick="saveSettings()">
+              <i class="fas fa-save"></i> Save Settings
+            </button>
           </div>
         </div>
       </section>
@@ -180,8 +232,8 @@
         onclick="showSection('dashboard')"
         data-section="dashboard"
       >
-        <i class="fas fa-tachometer-alt"></i>
-        <span>Dashboard</span>
+        <i class="fas fa-home"></i>
+        <span>Home</span>
       </button>
       <button
         class="nav-btn"
@@ -205,11 +257,11 @@
       </button>
       <button
         class="nav-btn"
-        onclick="showSection('district')"
-        data-section="district"
+        onclick="showSection('settings')"
+        data-section="settings"
       >
-        <i class="fas fa-cloud-sun"></i>
-        <span>Weather</span>
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
       </button>
     </nav>
 
