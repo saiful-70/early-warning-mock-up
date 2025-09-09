@@ -2,7 +2,7 @@
 const translations = {
   bengali: {
     // Header
-    appTitle: "ইডব্লিউএস",
+    appTitle: "EWS",
     // Dashboard
     alerts: "সতর্কতা",
     events: "ইভেন্টস",
@@ -200,7 +200,7 @@ const mockData = {
       },
     },
   },
-  districtAlerts: [    {      event: "Heavy Rain",      location: "Chittagong",      risk: "Medium",      notice: "Prepare for flooding (BMD/DoF Alert)",    },  ],
+  districtAlerts: [{ event: "Heavy Rain", location: "Chittagong", risk: "Medium", notice: "Prepare for flooding (BMD/DoF Alert)", },],
   // Fish farmer action recommendations for different disasters
   disasterActions: {
     Floods: {
@@ -493,9 +493,8 @@ function loadDashboard() {
     priorityAlertEl.innerHTML = `
       <div class="alert-content">
         <div class="alert-header">
-          <span class="risk-badge ${priorityAlert.risk.toLowerCase()}">${
-      priorityAlert.risk
-    }</span>
+          <span class="risk-badge ${priorityAlert.risk.toLowerCase()}">${priorityAlert.risk
+      }</span>
           <span class="location-badge">${priorityAlert.location}</span>
         </div>
         <div class="alert-text">${priorityAlert.event}</div>
@@ -589,18 +588,16 @@ function loadAlerts() {
     card.className = "card";
     card.innerHTML = `
       <div class="card-header">
-        <h3><i class="fas fa-${
-          alert.risk === "High"
-            ? "exclamation-triangle"
-            : alert.risk === "Medium"
-            ? "exclamation-circle"
-            : "info-circle"
-        }"></i> ${alert.event}</h3>
+        <h3><i class="fas fa-${alert.risk === "High"
+        ? "exclamation-triangle"
+        : alert.risk === "Medium"
+          ? "exclamation-circle"
+          : "info-circle"
+      }"></i> ${alert.event}</h3>
       </div>
       <div class="card-content">
-        <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${
-          alert.location
-        }</p>
+        <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${alert.location
+      }</p>
         <div class="risk-${alert.risk.toLowerCase()}">
           <i class="fas fa-shield-alt"></i> Risk Level: ${alert.risk}
         </div>
@@ -839,10 +836,10 @@ function loadCalendar() {
     // apply overrides (adds or replaces)
     Object.keys(override).forEach(
       (k) =>
-        (merged[k] = {
-          months: [...(override[k].months || [])],
-          color: override[k].color || "#ddd",
-        })
+      (merged[k] = {
+        months: [...(override[k].months || [])],
+        color: override[k].color || "#ddd",
+      })
     );
     return merged; // disaster -> { months, color }
   }
@@ -875,15 +872,15 @@ function loadCalendar() {
     const district = districtSelect.value;
     const matrix = buildDistrictMatrix(district);
     const disasters = Object.keys(matrix).sort((a, b) => a.localeCompare(b));
-    
+
     // Get translations for current language
     const t = translations[appSettings.language];
-    
+
     // populate disaster select
     disasterSelect.innerHTML = "";
     const allOpt = document.createElement("option");
     allOpt.value = "all";
-    
+
     // Translate "All disasters" based on language
     allOpt.textContent = appSettings.language === "bengali" ? "সব দুর্যোগ" : "All disasters";
     disasterSelect.appendChild(allOpt);
@@ -901,18 +898,18 @@ function loadCalendar() {
       "Diseases": "রোগ",
       "Landslides": "ভূমিধস"
     };
-    
+
     disasters.forEach((d) => {
       const o = document.createElement("option");
       o.value = d;
-      
+
       // Use translated disaster name if available
       if (appSettings.language === "bengali") {
         o.textContent = bengaliDisasters[d] || d;
       } else {
         o.textContent = d;
       }
-      
+
       disasterSelect.appendChild(o);
     });
     disasterSelect.value = "all";
@@ -949,7 +946,7 @@ function loadCalendar() {
     months.forEach((m) => {
       const th = document.createElement("th");
       th.className = "month";
-      
+
       // Get month abbreviation based on language
       let monthAbbr;
       if (appSettings.language === "bengali") {
@@ -973,7 +970,7 @@ function loadCalendar() {
         // Default English abbreviation
         monthAbbr = m.slice(0, 3);
       }
-      
+
       th.textContent = monthAbbr;
       hrow.appendChild(th);
     });
@@ -1021,7 +1018,7 @@ function loadCalendar() {
   }
 
   function renderLegend(visibleDisasters, matrix) {
-    legendWrap.innerHTML = "";    
+    legendWrap.innerHTML = "";
     // Disaster translations for Bengali
     const bengaliDisasters = {
       "Floods": "বন্যা",
@@ -1036,7 +1033,7 @@ function loadCalendar() {
       "Diseases": "রোগ",
       "Landslides": "ভূমিধস"
     };
-    
+
     visibleDisasters.forEach((d) => {
       const e = matrix[d];
       if (!e) return;
@@ -1046,14 +1043,14 @@ function loadCalendar() {
       box.className = "color-box";
       box.style.backgroundColor = e.color || "#ddd";
       const label = document.createElement("div");
-      
+
       // Use translated disaster name if available
       if (appSettings.language === "bengali") {
         label.textContent = bengaliDisasters[d] || d;
       } else {
         label.textContent = d;
       }
-      
+
       item.appendChild(box);
       item.appendChild(label);
       legendWrap.appendChild(item);
@@ -1063,13 +1060,13 @@ function loadCalendar() {
   // Render disaster actions for fish farmers
   function renderDisasterActions(selectedDisaster) {
     const actionsContent = document.getElementById("actions-content");
-    
+
     if (selectedDisaster === "all") {
       // Show a message to select a specific disaster
-      const selectMessage = appSettings.language === "bengali" ? 
-        "অনুগ্রহ করে মাছ চাষীদের জন্য প্রস্তাবিত পদক্ষেপ দেখতে একটি নির্দিষ্ট দুর্যোগ নির্বাচন করুন।" : 
+      const selectMessage = appSettings.language === "bengali" ?
+        "অনুগ্রহ করে মাছ চাষীদের জন্য প্রস্তাবিত পদক্ষেপ দেখতে একটি নির্দিষ্ট দুর্যোগ নির্বাচন করুন।" :
         "Please select a specific disaster to see recommended actions for fish farmers.";
-      
+
       actionsContent.innerHTML = `
         <div class="note">
           <i class="fas fa-info-circle"></i> ${selectMessage}
@@ -1077,15 +1074,15 @@ function loadCalendar() {
       `;
       return;
     }
-    
+
     // Get actions for the selected disaster
     const disasterAction = mockData.disasterActions[selectedDisaster];
-    
+
     if (!disasterAction || !disasterAction.actions || disasterAction.actions.length === 0) {
-      const noActionsMessage = appSettings.language === "bengali" ? 
-        `${selectedDisaster} এর জন্য কোন নির্দিষ্ট পদক্ষেপ উপলব্ধ নেই।` : 
+      const noActionsMessage = appSettings.language === "bengali" ?
+        `${selectedDisaster} এর জন্য কোন নির্দিষ্ট পদক্ষেপ উপলব্ধ নেই।` :
         `No specific actions available for ${selectedDisaster}.`;
-      
+
       actionsContent.innerHTML = `
         <div class="no-actions">
           <i class="fas fa-exclamation-circle"></i> ${noActionsMessage}
@@ -1093,25 +1090,25 @@ function loadCalendar() {
       `;
       return;
     }
-    
+
     // Create list of actions
     let actionsList = '<ul class="action-list">';
-    
+
     // Use Bengali actions if available and language is Bengali
-    const actions = (appSettings.language === "bengali" && disasterAction.actionsBengali) ? 
+    const actions = (appSettings.language === "bengali" && disasterAction.actionsBengali) ?
       disasterAction.actionsBengali : disasterAction.actions;
-      
+
     actions.forEach(action => {
       actionsList += `<li>${action}</li>`;
     });
     actionsList += '</ul>';
-    
+
     actionsContent.innerHTML = actionsList;
   }
 
   // init
   initControls();
-  
+
   // Initialize disaster actions
   renderDisasterActions("all");
 
@@ -1229,16 +1226,14 @@ function loadDistrict() {
         <span class="status-badge">BMD/DoF Alert</span>
       </div>
       <div class="card-content">
-        <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${
-          alert.location
-        }</p>
+        <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${alert.location
+      }</p>
         <div class="risk-${alert.risk.toLowerCase()}">
           <i class="fas fa-shield-alt"></i> Risk Level: ${alert.risk}
         </div>
         <div style="margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 8px;">
-          <p><i class="fas fa-bell"></i> <strong>Official Notice:</strong> ${
-            alert.notice
-          }</p>
+          <p><i class="fas fa-bell"></i> <strong>Official Notice:</strong> ${alert.notice
+      }</p>
         </div>
       </div>`;
     list.appendChild(card);
@@ -1420,9 +1415,8 @@ function showAlertModal() {
       alertElement.innerHTML = `
         <div class="card-header">
           <h3><i class="fas fa-exclamation-triangle"></i> ${alert.event}</h3>
-          <p><i class="fas fa-map-marker-alt"></i> <strong>${t.location}</strong> ${
-        alert.location
-      }</p>
+          <p><i class="fas fa-map-marker-alt"></i> <strong>${t.location}</strong> ${alert.location
+        }</p>
         </div>
         <div class="card-content">
           <div class="risk-${alert.risk.toLowerCase()}">
