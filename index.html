@@ -1,226 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EWS App for Aquaculture Farmers</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EWS App for Aquaculture Farmers</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-</head>
-
-<body>
-  <!-- Alert Modal -->
-  <div id="alert-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2><i class="fas fa-exclamation-triangle"></i> Urgent Alerts</h2>
-        <span class="close-btn">&times;</span>
-      </div>
-      <div class="modal-body" id="modal-alerts-list">
-        <!-- Alert content will be inserted here by JavaScript -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Compact Header -->
-  <header class="compact-header">
-    <div class="header-info">
-      <div class="app-title">
-        <i class="fas fa-fish"></i>
-        <span>EWS</span>
-      </div>
-      <div class="user-info">
-        <span class="location" id="current-location">Dhaka</span>
-        <span class="month" id="current-month">September</span>
+  <body>
+    <!-- Alert Modal -->
+    <div id="alert-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-exclamation-triangle"></i> Urgent Alerts</h2>
+          <span class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body" id="modal-alerts-list">
+          <!-- Alert content will be inserted here by JavaScript -->
+        </div>
       </div>
     </div>
-  </header>
 
-  <!-- Sections (hidden/shown via JS) -->
-  <main class="container">
-    <!-- Mobile-First Dashboard -->
-    <section id="dashboard" class="active">
-      <div class="dashboard-mobile">
+    <!-- Compact Header -->
+    <header class="compact-header">
+      <div class="header-info">
+        <div class="app-title">
+          <i class="fas fa-fish"></i>
+          <span>EWS</span>
+        </div>
+        <div class="user-info">
+          <span class="location" id="current-location">Dhaka</span>
+          <span class="month" id="current-month">September</span>
+        </div>
+      </div>
+    </header>
 
-        <!-- Main Cards -->
-        <div class="mobile-cards">
-          <div class="mobile-card priority-card">
-            <div class="card-title">
+    <!-- Sections (hidden/shown via JS) -->
+    <main class="container">
+      <!-- Mobile-First Dashboard -->
+      <section id="dashboard" class="active">
+        <div class="dashboard-mobile">
+          <!-- Disaster Information Section -->
+          <div class="section-container">
+            <h3 class="section-title">
               <i class="fas fa-exclamation-triangle"></i>
-              Urgent Alert
+              দুর্যোগ সম্পর্কিত তথ্য
+            </h3>
+            <div class="disaster-cards">
+              <div class="disaster-card" onclick="showDisasterDetails('flood')">
+                <div class="disaster-icon">
+                  <i class="fas fa-water"></i>
+                </div>
+                <div class="disaster-info">
+                  <h4>বন্যা</h4>
+                  <p>বন্যার সময় করণীয় ও সতর্কতা</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </div>
+              <div
+                class="disaster-card"
+                onclick="showDisasterDetails('cyclone')"
+              >
+                <div class="disaster-icon">
+                  <i class="fas fa-wind"></i>
+                </div>
+                <div class="disaster-info">
+                  <h4>ঘূর্ণিঝড়</h4>
+                  <p>ঘূর্ণিঝড়ের সময় করণীয় ও সতর্কতা</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </div>
+              <div
+                class="disaster-card"
+                onclick="showDisasterDetails('drought')"
+              >
+                <div class="disaster-icon">
+                  <i class="fas fa-sun"></i>
+                </div>
+                <div class="disaster-info">
+                  <h4>খরা</h4>
+                  <p>খরার সময় করণীয় ও সতর্কতা</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </div>
             </div>
-            <div class="card-body" id="priority-alert">Loading...</div>
           </div>
 
-          <div class="mobile-card today-tip-card">
-            <div class="card-title">
-              <i class="fas fa-lightbulb"></i>
-              Today's Tip
+          <!-- Fish Farming Advice Section -->
+          <div class="section-container">
+            <h3 class="section-title">
+              <i class="fas fa-fish"></i>
+              মাছ চাষের পরামর্শ
+            </h3>
+            <div class="fish-cards">
+              <div class="fish-card" onclick="showFishDetails('Rui')">
+                <div class="fish-image">
+                  <img src="images/rui.png" alt="রুই মাছ" />
+                </div>
+                <div class="fish-info">
+                  <h4>রুই মাছ</h4>
+                  <p>চাষ পদ্ধতি ও পরিচর্যা</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </div>
+              <div class="fish-card" onclick="showFishDetails('Katla')">
+                <div class="fish-image">
+                  <img src="images/katla.png" alt="কাতলা মাছ" />
+                </div>
+                <div class="fish-info">
+                  <h4>কাতলা মাছ</h4>
+                  <p>চাষ পদ্ধতি ও পরিচর্যা</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </div>
+              <div class="fish-card" onclick="showFishDetails('Chingri')">
+                <div class="fish-image">
+                  <img src="images/chingri.png" alt="চিংড়ি" />
+                </div>
+                <div class="fish-info">
+                  <h4>চিংড়ি</h4>
+                  <p>চাষ পদ্ধতি ও পরিচর্যা</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </div>
+              <div class="fish-card" onclick="showFishDetails('Pangash')">
+                <div class="fish-image">
+                  <img src="images/pangash.png" alt="পাংগাশ মাছ" />
+                </div>
+                <div class="fish-info">
+                  <h4>পাংগাশ মাছ</h4>
+                  <p>চাষ পদ্ধতি ও পরিচর্যা</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </div>
             </div>
-            <div class="card-body" id="today-tip">Loading...</div>
-          </div>
-
-          <div class="mobile-card weather-card" id="weather-mobile-card" style="display: none">
-            <div class="card-title">
-              <i class="fas fa-cloud-sun"></i>
-              Weather Alert
-            </div>
-            <div class="card-body" id="weather-mobile">Loading...</div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
+      <section id="calendar">
+        <div id="calendar-container">
+          <h2>Disaster Calendar — District & Disaster</h2>
 
-    <section id="calendar">
-      <div id="calendar-container">
-        <h2>Disaster Calendar — District & Disaster</h2>
-
-        <div class="controls">
-          <div class="form-group">
-            <label for="districtSelect">
-              <i class="fas fa-map-marker-alt"></i> District:
-            </label>
-            <select id="districtSelect" class="styled-select"></select>
-          </div>
-
-          <div class="form-group">
-            <label for="disasterSelect">
-              <i class="fas fa-exclamation-triangle"></i> Disaster:
-            </label>
-            <select id="disasterSelect" class="styled-select"></select>
-          </div>
-        </div>
-
-        <div id="calendarWrap"></div>
-        <div class="legend" id="legend"></div>
-      </div>
-      <div id="disaster-actions" class="disaster-actions-card">
-        <h3><i class="fas fa-tools"></i> Fish Farmer Actions</h3>
-        <div id="actions-content"></div>
-      </div>
-    </section>
-
-    <section id="tips">
-      <div id="tips-details"></div>
-    </section>
-
-    <section id="district">
-      <div id="district-list"></div>
-      <div id="weather-details" style="display: none">
-        <div class="weather-card">
-          <h3><i class="fas fa-thermometer-half"></i> Weather Prediction</h3>
-          <div class="weather-status">
-            <span class="status-badge active">Activated due to alerts</span>
-          </div>
-          <p id="weather-info"></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Settings Section -->
-    <section id="settings">
-      <div class="settings-container">
-        <div class="settings-group">
-          <h3><i class="fas fa-map-marker-alt"></i> Location Settings</h3>
-          <div class="form-group">
-            <label for="district-select">Select Your District:</label>
-            <select id="district-select" class="styled-select">
-              <option value="Dhaka">Dhaka</option>
-              <option value="Chittagong">Chittagong</option>
-              <option value="Sylhet">Sylhet</option>
-              <option value="Rajshahi">Rajshahi</option>
-              <option value="Khulna">Khulna</option>
-              <option value="Barisal">Barisal</option>
-              <option value="Rangpur">Rangpur</option>
-              <option value="Mymensingh">Mymensingh</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="settings-group">
-          <h3><i class="fas fa-language"></i> Language Settings</h3>
-          <div class="form-group">
-            <label for="language-select">Select Language:</label>
-            <select id="language-select" class="styled-select">
-              <option value="bengali">বাংলা (Bengali)</option>
-              <option value="english">English</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="settings-group">
-          <h3><i class="fas fa-calendar-alt"></i> Default Month</h3>
-          <div class="form-group">
-            <label for="default-month-select">Select Month:</label>
-            <select id="default-month-select" class="styled-select">
-              <option value="current">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="settings-group">
-          <h3><i class="fas fa-bell"></i> Notification Settings</h3>
-          <div class="toggle-group">
-            <div class="toggle-item">
-              <span class="toggle-label">High Risk Alerts</span>
-              <label class="toggle">
-                <input type="checkbox" id="high-risk-toggle" checked />
-                <span class="slider"></span>
+          <div class="controls">
+            <div class="form-group">
+              <label for="districtSelect">
+                <i class="fas fa-map-marker-alt"></i> District:
               </label>
+              <select id="districtSelect" class="styled-select"></select>
             </div>
-            <div class="toggle-item">
-              <span class="toggle-label">Weather Updates</span>
-              <label class="toggle">
-                <input type="checkbox" id="weather-toggle" checked />
-                <span class="slider"></span>
+
+            <div class="form-group">
+              <label for="disasterSelect">
+                <i class="fas fa-exclamation-triangle"></i> Disaster:
               </label>
-            </div>
-            <div class="toggle-item">
-              <span class="toggle-label">Fish Farming Tips</span>
-              <label class="toggle">
-                <input type="checkbox" id="tips-toggle" checked />
-                <span class="slider"></span>
-              </label>
+              <select id="disasterSelect" class="styled-select"></select>
             </div>
           </div>
+
+          <div id="calendarWrap"></div>
+          <div class="legend" id="legend"></div>
         </div>
-
-        <div class="settings-actions">
-          <button class="save-btn" onclick="saveSettings()">
-            <i class="fas fa-save"></i> Save Settings
-          </button>
+        <div id="disaster-actions" class="disaster-actions-card">
+          <h3><i class="fas fa-tools"></i> Fish Farmer Actions</h3>
+          <div id="actions-content"></div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <button class="nav-btn active" onclick="showSection('dashboard')" data-section="dashboard">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
-    </button>
-    <button class="nav-btn" onclick="showSection('calendar')" data-section="calendar">
-      <i class="fas fa-calendar"></i>
-      <span>Calendar</span>
-    </button>
-    <button class="nav-btn" onclick="showSection('fish-farming')" data-section="fish-farming">
-      <i class="fas fa-fish"></i>
-      <span>Fish Farming</span>
-    </button>
-    <button class="nav-btn" onclick="showSection('settings')" data-section="settings">
-      <i class="fas fa-cog"></i>
-      <span>Settings</span>
-    </button>
-  </nav>
+      <section id="tips">
+        <div id="tips-details"></div>
+      </section>
 
-  <script src="script.js"></script>
-</body>
+      <section id="district">
+        <div id="district-list"></div>
+        <div id="weather-details" style="display: none">
+          <div class="weather-card">
+            <h3><i class="fas fa-thermometer-half"></i> Weather Prediction</h3>
+            <div class="weather-status">
+              <span class="status-badge active">Activated due to alerts</span>
+            </div>
+            <p id="weather-info"></p>
+          </div>
+        </div>
+      </section>
 
+      <!-- Settings Section -->
+      <section id="settings">
+        <div class="settings-container">
+          <div class="settings-group">
+            <h3><i class="fas fa-map-marker-alt"></i> Location Settings</h3>
+            <div class="form-group">
+              <label for="district-select">Select Your District:</label>
+              <select id="district-select" class="styled-select">
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chittagong">Chittagong</option>
+                <option value="Sylhet">Sylhet</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Barisal">Barisal</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Mymensingh">Mymensingh</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <h3><i class="fas fa-language"></i> Language Settings</h3>
+            <div class="form-group">
+              <label for="language-select">Select Language:</label>
+              <select id="language-select" class="styled-select">
+                <option value="bengali">বাংলা (Bengali)</option>
+                <option value="english">English</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <h3><i class="fas fa-calendar-alt"></i> Default Month</h3>
+            <div class="form-group">
+              <label for="default-month-select">Select Month:</label>
+              <select id="default-month-select" class="styled-select">
+                <option value="current">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <h3><i class="fas fa-bell"></i> Notification Settings</h3>
+            <div class="toggle-group">
+              <div class="toggle-item">
+                <span class="toggle-label">High Risk Alerts</span>
+                <label class="toggle">
+                  <input type="checkbox" id="high-risk-toggle" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="toggle-item">
+                <span class="toggle-label">Weather Updates</span>
+                <label class="toggle">
+                  <input type="checkbox" id="weather-toggle" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="toggle-item">
+                <span class="toggle-label">Fish Farming Tips</span>
+                <label class="toggle">
+                  <input type="checkbox" id="tips-toggle" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-actions">
+            <button class="save-btn" onclick="saveSettings()">
+              <i class="fas fa-save"></i> Save Settings
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <button
+        class="nav-btn active"
+        onclick="showSection('dashboard')"
+        data-section="dashboard"
+      >
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('calendar')"
+        data-section="calendar"
+      >
+        <i class="fas fa-calendar"></i>
+        <span>Calendar</span>
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('fish-farming')"
+        data-section="fish-farming"
+      >
+        <i class="fas fa-fish"></i>
+        <span>Fish Farming</span>
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('settings')"
+        data-section="settings"
+      >
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </button>
+    </nav>
+
+    <script src="script.js"></script>
+  </body>
 </html>

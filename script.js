@@ -437,7 +437,135 @@ function showSection(sectionId) {
 
   // Update URL hash for navigation
   window.location.hash = sectionId;
-} // Load dashboard content
+}
+
+// Function to show disaster details
+function showDisasterDetails(disasterType) {
+  const disasterData = {
+    flood: {
+      title: "বন্যা সম্পর্কিত তথ্য ও করণীয়",
+      content: `
+        <div class="disaster-detail">
+          <h3>বন্যার পূর্ব প্রস্তুতি:</h3>
+          <ul>
+            <li>মাছের পুকুরে জাল দিয়ে ঢেকে দিন</li>
+            <li>পুকুরের পাড় উঁচু করে নিন</li>
+            <li>প্রয়োজনীয় ওষুধ মজুত রাখুন</li>
+            <li>মাছের খাবার নিরাপদ স্থানে সংরক্ষণ করুন</li>
+          </ul>
+          
+          <h3>বন্যার সময় করণীয়:</h3>
+          <ul>
+            <li>পুকুরের পানির মান নিয়মিত পরীক্ষা করুন</li>
+            <li>মৃত মাছ তৎক্ষণাত সরিয়ে ফেলুন</li>
+            <li>অতিরিক্ত অক্সিজেন সরবরাহ করুন</li>
+            <li>প্রয়োজনে মাছ ধরে নিরাপদ স্থানে সরান</li>
+          </ul>
+
+          <h3>বন্যার পর করণীয়:</h3>
+          <ul>
+            <li>পুকুর পরিষ্কার ও জীবাণুমুক্ত করুন</li>
+            <li>নতুন পোনা মজুত করার আগে পানি পরীক্ষা করুন</li>
+            <li>ক্ষতিগ্রস্ত পুকুরের মেরামত করুন</li>
+          </ul>
+        </div>
+      `
+    },
+    cyclone: {
+      title: "ঘূর্ণিঝড় সম্পর্কিত তথ্য ও করণীয়",
+      content: `
+        <div class="disaster-detail">
+          <h3>ঘূর্ণিঝড়ের পূর্ব প্রস্তুতি:</h3>
+          <ul>
+            <li>পুকুরে বাঁশের খুঁটি দিয়ে জাল বাঁধুন</li>
+            <li>গভীর পুকুরে মাছ স্থানান্তর করুন</li>
+            <li>অস্থায়ী আশ্রয়স্থল তৈরি করুন</li>
+            <li>পানির পাম্প ও অক্সিজেন সরবরাহ নিশ্চিত করুন</li>
+          </ul>
+          
+          <h3>ঘূর্ণিঝড়ের সময় করণীয়:</h3>
+          <ul>
+            <li>মাছকে খাবার দেওয়া বন্ধ করুন</li>
+            <li>পুকুরের পানির গভীরতা বাড়ান</li>
+            <li>মাছের নিরাপত্তার জন্য নিয়মিত পর্যবেক্ষণ করুন</li>
+          </ul>
+
+          <h3>ঘূর্ণিঝড়ের পর করণীয়:</h3>
+          <ul>
+            <li>মৃত মাছ এবং আবর্জনা পরিষ্কার করুন</li>
+            <li>পানির মান পরীক্ষা করুন</li>
+            <li>প্রয়োজনে লাইম প্রয়োগ করুন</li>
+          </ul>
+        </div>
+      `
+    },
+    drought: {
+      title: "খরা সম্পর্কিত তথ্য ও করণীয়",
+      content: `
+        <div class="disaster-detail">
+          <h3>খরার পূর্ব প্রস্তুতি:</h3>
+          <ul>
+            <li>গভীর নলকূপের ব্যবস্থা করুন</li>
+            <li>পানি সংরক্ষণের ব্যবস্থা নিন</li>
+            <li>বিকল্প পানির উৎসের সন্ধান করুন</li>
+            <li>মাছের ঘনত্ব কমিয়ে দিন</li>
+          </ul>
+          
+          <h3>খরার সময় করণীয়:</h3>
+          <ul>
+            <li>নিয়মিত পানি সরবরাহ করুন</li>
+            <li>মাছের খাবার কমিয়ে দিন</li>
+            <li>পুকুরে ছায়ার ব্যবস্থা করুন</li>
+            <li>অক্সিজেনের ব্যবস্থা করুন</li>
+          </ul>
+
+          <h3>খরার পর করণীয়:</h3>
+          <ul>
+            <li>পুকুর পুনরায় পূর্ণ করুন</li>
+            <li>নতুন মাছের পোনা ছাড়ুন</li>
+            <li>পানির মান উন্নত করুন</li>
+          </ul>
+        </div>
+      `
+    }
+  };
+
+  // Create and show modal with disaster details
+  const modal = document.createElement('div');
+  modal.className = 'detail-modal';
+  modal.innerHTML = `
+    <div class="detail-modal-content">
+      <div class="detail-modal-header">
+        <h2>${disasterData[disasterType].title}</h2>
+        <span class="detail-close-btn">&times;</span>
+      </div>
+      <div class="detail-modal-body">
+        ${disasterData[disasterType].content}
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  // Add close functionality
+  modal.querySelector('.detail-close-btn').onclick = () => {
+    document.body.removeChild(modal);
+  };
+
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      document.body.removeChild(modal);
+    }
+  };
+}
+
+// Function to show fish details
+function showFishDetails(fishType) {
+  // Navigate to the fish-details.html page with fish type parameter
+  window.location.href = `fish-details.html?fish=${fishType}`;
+}
+
+// Load dashboard content
 function loadDashboard() {
   // Define t at the beginning of the function to ensure it's available throughout
   let t;
