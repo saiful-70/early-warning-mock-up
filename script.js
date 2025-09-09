@@ -38,7 +38,7 @@ const translations = {
     // Navigation
     home: "হোম",
     calendar: "ক্যালেন্ডার",
-    tips: "মাছ চাষ",
+    fishFarming: "মাছ চাষ",
     settings: "সেটিংস",
     // Modal
     urgentAlerts: "জরুরি সতর্কতা",
@@ -83,7 +83,7 @@ const translations = {
     // Navigation
     home: "Home",
     calendar: "Calendar",
-    tips: "Fish Farming",
+    fishFarming: "Fish Farming",
     settings: "Settings",
     // Modal
     urgentAlerts: "Urgent Alerts",
@@ -128,37 +128,76 @@ const mockData = {
     // 5 Bangladeshi fishes with descriptions
     Rui: {
       name: "রুই মাছ (Rui Fish)",
-      description:
-        "A freshwater carp species native to rivers in Bangladesh. It's one of the most popular food fishes in the country.",
-      details:
-        "Rui fish (Labeo rohita) is a major carp species that thrives in freshwater ponds and rivers. It requires proper water quality management and regular feeding for optimal growth.",
+      description: {
+        english:
+          "A freshwater carp species native to rivers in Bangladesh. It's one of the most popular food fishes in the country.",
+        bengali:
+          "বাংলাদেশের নদীতে পাওয়া একটি মিঠা পানির কার্প প্রজাতি। এটি দেশের সবচেয়ে জনপ্রিয় খাদ্য মাছের মধ্যে একটি।",
+      },
+      details: {
+        english:
+          "Rui fish (Labeo rohita) is a major carp species that thrives in freshwater ponds and rivers. It requires proper water quality management and regular feeding for optimal growth.",
+        bengali:
+          "রুই মাছ (লেবিও রোহিতা) একটি প্রধান কার্প প্রজাতি যা মিঠা পানির পুকুর এবং নদীতে বেড়ে ওঠে। সর্বোত্তম বৃদ্ধির জন্য এটি উপযুক্ত পানির গুণমান ব্যবস্থাপনা এবং নিয়মিত খাওয়ানো প্রয়োজন।",
+      },
     },
     Katla: {
       name: "কাতলা মাছ (Katla Fish)",
-      description:
-        "A large freshwater carp found in rivers and ponds throughout Bangladesh, known for its distinctive head.",
-      details:
-        "Katla (Catla catla) is a surface feeder that grows rapidly in well-managed ponds. It's highly valued for its taste and nutritional benefits in Bangladeshi cuisine.",
+      description: {
+        english:
+          "A large freshwater carp found in rivers and ponds throughout Bangladesh, known for its distinctive head.",
+        bengali:
+          "বাংলাদেশের নদী এবং পুকুরে পাওয়া একটি বড় মিঠা পানির কার্প, এর স্বতন্ত্র মাথার জন্য পরিচিত।",
+      },
+      details: {
+        english:
+          "Katla (Catla catla) is a surface feeder that grows rapidly in well-managed ponds. It's highly valued for its taste and nutritional benefits in Bangladeshi cuisine.",
+        bengali:
+          "কাতলা (ক্যাটলা ক্যাটলা) একটি পৃষ্ঠ ফিডার যা সুপরিচালিত পুকুরে দ্রুত বৃদ্ধি পায়। এটি বাংলাদেশী রান্নায় এর স্বাদ এবং পুষ্টিগত উপকারিতার জন্য অত্যন্ত মূল্যবান।",
+      },
     },
     Chingri: {
       name: "চিংড়ি মাছ (Prawn)",
-      description: "A highly valued aquaculture product in Bangladesh.",
-      details:
-        "Freshwater prawns are an important commercial species that thrive in both coastal and inland aquaculture systems.",
+      description: {
+        english: "A highly valued aquaculture product in Bangladesh.",
+        bengali: "বাংলাদেশে অত্যন্ত মূল্যবান জলজ চাষের পণ্য।",
+      },
+      details: {
+        english:
+          "Freshwater prawns are an important commercial species that thrive in both coastal and inland aquaculture systems.",
+        bengali:
+          "মিঠা পানির চিংড়ি একটি গুরুত্বপূর্ণ বাণিজ্যিক প্রজাতি যা উপকূলীয় এবং অভ্যন্তরীণ জলজ চাষ ব্যবস্থায় বেড়ে ওঠে।",
+      },
     },
     Pabda: {
       name: "পাবদা মাছ (Pabda Fish)",
-      description:
-        "A small indigenous catfish species popular for its soft texture and delicate taste.",
-      details:
-        "Pabda (Ompok pabda) is a small catfish that requires careful management in aquaculture. It prefers slow-moving water and is highly valued in local markets.",
+      description: {
+        english:
+          "A small indigenous catfish species popular for its soft texture and delicate taste.",
+        bengali:
+          "একটি ছোট দেশীয় ক্যাটফিশ প্রজাতি যা এর নরম টেক্সচার এবং সূক্ষ্ম স্বাদের জন্য জনপ্রিয়।",
+      },
+      details: {
+        english:
+          "Pabda (Ompok pabda) is a small catfish that requires careful management in aquaculture. It prefers slow-moving water and is highly valued in local markets.",
+        bengali:
+          "পাবদা (ওমপক পাবদা) একটি ছোট ক্যাটফিশ যা জলজ চাষে সতর্ক ব্যবস্থাপনা প্রয়োজন। এটি ধীর গতির পানি পছন্দ করে এবং স্থানীয় বাজারে অত্যন্ত মূল্যবান।",
+      },
     },
     Pangash: {
       name: "পাঙ্গাস মাছ (Pangasius Fish)",
-      description:
-        "A large catfish species widely farmed in Bangladesh for its fast growth rate and high yield.",
-      details:
-        "Pangasius (Pangasianodon hypophthalmus) is an economically important aquaculture species in Bangladesh. It's hardy, grows quickly, and adapts well to various farming conditions.",
+      description: {
+        english:
+          "A large catfish species widely farmed in Bangladesh for its fast growth rate and high yield.",
+        bengali:
+          "একটি বড় ক্যাটফিশ প্রজাতি যা বাংলাদেশে এর দ্রুত বৃদ্ধির হার এবং উচ্চ ফলনের জন্য ব্যাপকভাবে চাষ করা হয়।",
+      },
+      details: {
+        english:
+          "Pangasius (Pangasianodon hypophthalmus) is an economically important aquaculture species in Bangladesh. It's hardy, grows quickly, and adapts well to various farming conditions.",
+        bengali:
+          "পাঙ্গাস (প্যাঙ্গাসিয়ানোডন হাইপোফথালমাস) বাংলাদেশে অর্থনৈতিকভাবে গুরুত্বপূর্ণ জলজ চাষের প্রজাতি। এটি শক্ত, দ্রুত বৃদ্ধি পায়, এবং বিভিন্ন চাষের অবস্থার সাথে ভালভাবে খাপ খায়।",
+      },
     },
   },
   districtAlerts: [
@@ -311,6 +350,12 @@ function loadDashboard() {
   const randomFish = fishTypes[Math.floor(Math.random() * fishTypes.length)];
   const fishInfo = mockData.fishTips[randomFish];
 
+  // Get the selected language
+  const selectedLanguage = appSettings.language.toLowerCase();
+  // Get description in the selected language or fallback to English
+  const fishDescription =
+    fishInfo.description[selectedLanguage] || fishInfo.description.english;
+
   const todayTipEl = document.getElementById("today-tip");
   if (todayTipEl && t && t.todaysTip) {
     todayTipEl.innerHTML = `
@@ -319,7 +364,7 @@ function loadDashboard() {
           <span class="fish-badge">${fishInfo.name}</span>
           <span class="week-badge">Fish Farming</span>
         </div>
-        <div class="tip-text">${fishInfo.description}</div>
+        <div class="tip-text">${fishDescription}</div>
         <a href="fish-details.html?fish=${randomFish}&section=dashboard" class="tip-link">View Details</a>
       </div>`;
   }
@@ -471,9 +516,15 @@ function loadTips() {
     // Get all fish types
     const fishTypes = Object.keys(mockData.fishTips);
 
+    // Get the selected language
+    const selectedLanguage = appSettings.language.toLowerCase();
+
     // Create accordion items for each fish
     fishTypes.forEach((fishType) => {
       const fish = mockData.fishTips[fishType];
+      // Get description in the selected language or fallback to English
+      const description = fish.description[selectedLanguage] || fish.description.english;
+
       accordionHTML += `
         <div class="accordion-item">
           <div class="accordion-header" onclick="toggleAccordion(this)">
@@ -482,7 +533,7 @@ function loadTips() {
           </div>
           <div class="accordion-content">
             <div class="fish-description">
-              <p>${fish.description}</p>
+              <p>${description}</p>
               <button class="details-btn" onclick="showFishDetails('${fishType}')">View Details</button>
             </div>
           </div>
@@ -790,8 +841,8 @@ function applyLanguage(language) {
   const calendarBtn = document.querySelector('button[data-section="calendar"] span');
   if (calendarBtn) calendarBtn.textContent = t.calendar;
 
-  const tipsBtn = document.querySelector('button[data-section="tips"] span');
-  if (tipsBtn) tipsBtn.textContent = t.tips;
+  const fishFarmingBtn = document.querySelector('button[data-section="fish-farming"] span');
+  if (fishFarmingBtn) fishFarmingBtn.textContent = t.fishFarming;
 
   const settingsBtn = document.querySelector('button[data-section="settings"] span');
   if (settingsBtn) settingsBtn.textContent = t.settings;
@@ -867,8 +918,6 @@ function initializeApp() {
 
     // Check URL hash for navigation
     const hash = window.location.hash.substring(1);
-
-    console.log(hash)
 
     // Check if first time visit
     const isFirstLoad = localStorage.getItem("isFirstLoad") !== "false";

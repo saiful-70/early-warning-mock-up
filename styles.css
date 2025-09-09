@@ -50,8 +50,8 @@
 
 .details-btn {
   align-self: flex-end;
-  background-color: var(--primary-color);
-  color: black;
+  background: var(--primary-gradient);
+  color: white;
   border: none;
   padding: 10px 16px;
   border-radius: 4px;
@@ -65,7 +65,6 @@
 }
 
 .details-btn:hover {
-  background-color: var(--secondary-color);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -167,6 +166,7 @@
   --text-dark: #2d3748;
   --text-light: #718096;
   --bg-light: #f7fafc;
+  --bg-dark: #1a202c;
   --bg-white: #ffffff;
   --risk-low: linear-gradient(135deg, #48bb78 0%, #38b2ac 100%);
   --risk-medium: linear-gradient(135deg, #ed8936 0%, #f6ad55 100%);

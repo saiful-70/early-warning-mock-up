@@ -1,228 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fish Details - EWS App for Aquaculture Farmers</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      .fish-details-container {
-        padding: 20px;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-      
-      .fish-header {
-        color: black;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 20px;
-      }
-      
-      .fish-image {
-        background-color: white;
-        width: 100%;
-        height: 300px;
-        object-fit: contain;
-        border-radius: var(--border-radius);
-        margin-bottom: 20px;
-      }
-      
-      .fish-section {
-        margin-bottom: 25px;
-        padding: 20px;
-        background-color: var(--bg-white);
-        border-radius: var(--border-radius);
-        box-shadow: var(--card-shadow);
-      }
 
-      .fish-section ul {
-        padding-left: 20px;
-      }
-      
-      .fish-section h3 {
-        margin-top: 0;
-        color: var(--primary-color);
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: 10px;
-        margin-bottom: 15px;
-      }
-      
-      .back-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background-color: var(--primary-color);
-        color: black;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 500;
-        margin-bottom: 20px;
-        text-decoration: none;
-      }
-      
-      .back-btn:hover {
-        background-color: var(--secondary-color);
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Compact Header -->
-    <header class="compact-header">
-      <div class="header-info">
-        <div class="app-title">
-          <i class="fas fa-fish"></i>
-          <span>EWS</span>
-        </div>
-        <div class="user-info">
-          <span class="location" id="current-location">Dhaka</span>
-          <span class="month" id="current-month">September</span>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fish Details - EWS App for Aquaculture Farmers</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .fish-details-container {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .fish-header {
+      color: black;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .fish-image {
+      background-color: white;
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+    }
+
+    .fish-section {
+      margin-bottom: 25px;
+      padding: 20px;
+      background-color: var(--bg-white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+    }
+
+    .fish-section ul {
+      padding-left: 20px;
+    }
+
+    .fish-section h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary-color);
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background-color: var(--secondary-color);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Compact Header -->
+  <header class="compact-header">
+    <div class="header-info">
+      <div class="app-title">
+        <i class="fas fa-fish"></i>
+        <span>EWS</span>
       </div>
-    </header>
-
-    <main class="fish-details-container">
-      <a href="index.html#tips" class="back-btn">
-        <i class="fas fa-arrow-left"></i> Back to Fish List
-      </a>
-      
-      <div id="fish-details-content">
-        <!-- Content will be loaded by JavaScript -->
+      <div class="user-info">
+        <span class="location" id="current-location">Dhaka</span>
+        <span class="month" id="current-month">September</span>
       </div>
-    </main>
+    </div>
+  </header>
+
+  <main class="fish-details-container">
+    <a href="index.html#tips" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Fish List
+    </a>
+
+    <div id="fish-details-content">
+      <!-- Content will be loaded by JavaScript -->
+    </div>
+  </main>
 
 
-    <!-- Custom script to handle fish details page -->
-    <script>
-      // Define mockData if needed
-      if (typeof window.mockData === 'undefined') {
-        window.mockData = {
-          fishTips: {
-            "Rui": {
-              name: "রুই মাছ (Rui Fish)",
-              description: "A popular freshwater fish in Bangladesh with high nutritional value.",
-              details: "Rui fish is rich in protein and omega-3 fatty acids. It's a carp species native to rivers in South Asia."
+  <!-- Custom script to handle fish details page -->
+  <script>
+    // Define mockData if needed
+    if (typeof window.mockData === 'undefined') {
+      window.mockData = {
+        fishTips: {
+          // 5 Bangladeshi fishes with descriptions
+          Rui: {
+            name: "রুই মাছ (Rui Fish)",
+            description: {
+              english: "A freshwater carp species native to rivers in Bangladesh. It's one of the most popular food fishes in the country.",
+              bengali: "বাংলাদেশের নদীতে পাওয়া একটি মিঠা পানির কার্প প্রজাতি। এটি দেশের সবচেয়ে জনপ্রিয় খাদ্য মাছের মধ্যে একটি।"
             },
-            "Katla": {
-              name: "কাতলা মাছ (Katla Fish)",
-              description: "A large freshwater fish popular in Bengali cuisine.",
-              details: "Katla is a surface and midwater feeder. It's one of the most important aquacultured freshwater fishes."
-            },
-            "Ilish": {
-              name: "ইলিশ মাছ (Hilsa Fish)",
-              description: "The national fish of Bangladesh with a distinctive flavor.",
-              details: "Hilsa is a migratory fish that moves from marine water to freshwater for spawning."
-            },
-            "Chingri": {
-              name: "চিংড়ি মাছ (Prawn)",
-              description: "A highly valued aquaculture product in Bangladesh.",
-              details: "Freshwater prawns are an important commercial species that thrive in both coastal and inland aquaculture systems."
-            },
-            "Pabda": {
-              name: "পাবদা মাছ (Pabda Fish)",
-              description: "A small indigenous fish species with excellent taste.",
-              details: "Pabda is rich in micronutrients and has a soft texture making it popular in traditional dishes."
-            },
-            "Pangash": {
-              name: "পাঙ্গাস মাছ (Pangasius Fish)",
-              description: "A fast-growing catfish species widely farmed in Bangladesh.",
-              details: "Pangasius is an economical fish that's easy to farm and has become popular in aquaculture."
+            details: {
+              english: "Rui fish (Labeo rohita) is a major carp species that thrives in freshwater ponds and rivers. It requires proper water quality management and regular feeding for optimal growth.",
+              bengali: "রুই মাছ (লেবিও রোহিতা) একটি প্রধান কার্প প্রজাতি যা মিঠা পানির পুকুর এবং নদীতে বেড়ে ওঠে। সর্বোত্তম বৃদ্ধির জন্য এটি উপযুক্ত পানির গুণমান ব্যবস্থাপনা এবং নিয়মিত খাওয়ানো প্রয়োজন।"
             }
-          }
-        };
-      }
-      
-      // Override initializeApp to handle fish details page initialization
-      function initializeApp() {
-        console.log("Fish details page loaded");
-        
-        // Get the selected language from localStorage
-        const selectedLanguage = localStorage.getItem('language') || 'english';
-        
-        // Load fish details
-        loadFishDetails();
-      }
-      
-      // Override showSection to prevent errors
-      function showSection() {
-        console.log("Section navigation disabled on details page");
-      }
-    </script>
-    <script>
-      // Translation data for fish details page
-      const fishDetailsTranslations = {
-        bengali: {
-          backToFishList: "মাছের তালিকায় ফিরে যান",
-          overview: "সংক্ষিপ্ত বিবরণ",
-          detailedInformation: "বিস্তারিত তথ্য",
-          farmingGuidelines: "চাষ নির্দেশিকা",
-          waterQuality: "পানির গুণমান:",
-          feeding: "খাওয়ানো:",
-          stockingDensity: "স্টকিং ঘনত্ব:",
-          diseasePrevention: "রোগ প্রতিরোধ:",
-          harvesting: "ফসল কাটা:",
-          waterQualityDesc: "সর্বোত্তম বৃদ্ধির জন্য পিএইচ মাত্রা ৭.০-৮.৫ এর মধ্যে রাখুন।",
-          feedingDesc: "আকার এবং বয়সের উপর ভিত্তি করে উপযুক্ত মাছের খাবার দিয়ে দিনে ২-৩ বার খাওয়ান।",
-          stockingDensityDesc: "অতিরিক্ত ভিড় রোধ করতে উপযুক্ত স্টকিং ঘনত্ব বজায় রাখুন।",
-          diseasePreventionDesc: "রোগের লক্ষণ এবং পানির গুণমান নিয়মিত পর্যবেক্ষণ করুন।",
-          harvestingDesc: "সেরা বাজার মূল্যের জন্য সঠিক আকারে ফসল কাটুন।",
-          error: "ত্রুটি",
-          fishNotFound: "মাছের তথ্য পাওয়া যায়নি। অনুগ্রহ করে ফিরে গিয়ে একটি বৈধ মাছ নির্বাচন করুন।"
+          },
+          Katla: {
+            name: "কাতলা মাছ (Katla Fish)",
+            description: {
+              english: "A large freshwater carp found in rivers and ponds throughout Bangladesh, known for its distinctive head.",
+              bengali: "বাংলাদেশের নদী এবং পুকুরে পাওয়া একটি বড় মিঠা পানির কার্প, এর স্বতন্ত্র মাথার জন্য পরিচিত।"
+            },
+            details: {
+              english: "Katla (Catla catla) is a surface feeder that grows rapidly in well-managed ponds. It's highly valued for its taste and nutritional benefits in Bangladeshi cuisine.",
+              bengali: "কাতলা (ক্যাটলা ক্যাটলা) একটি পৃষ্ঠ ফিডার যা সুপরিচালিত পুকুরে দ্রুত বৃদ্ধি পায়। এটি বাংলাদেশী রান্নায় এর স্বাদ এবং পুষ্টিগত উপকারিতার জন্য অত্যন্ত মূল্যবান।"
+            }
+          },
+          Chingri: {
+            name: "চিংড়ি মাছ (Prawn)",
+            description: {
+              english: "A highly valued aquaculture product in Bangladesh.",
+              bengali: "বাংলাদেশে অত্যন্ত মূল্যবান জলজ চাষের পণ্য।"
+            },
+            details: {
+              english: "Freshwater prawns are an important commercial species that thrive in both coastal and inland aquaculture systems.",
+              bengali: "মিঠা পানির চিংড়ি একটি গুরুত্বপূর্ণ বাণিজ্যিক প্রজাতি যা উপকূলীয় এবং অভ্যন্তরীণ জলজ চাষ ব্যবস্থায় বেড়ে ওঠে।"
+            }
+          },
+          Pabda: {
+            name: "পাবদা মাছ (Pabda Fish)",
+            description: {
+              english: "A small indigenous catfish species popular for its soft texture and delicate taste.",
+              bengali: "একটি ছোট দেশীয় ক্যাটফিশ প্রজাতি যা এর নরম টেক্সচার এবং সূক্ষ্ম স্বাদের জন্য জনপ্রিয়।"
+            },
+            details: {
+              english: "Pabda (Ompok pabda) is a small catfish that requires careful management in aquaculture. It prefers slow-moving water and is highly valued in local markets.",
+              bengali: "পাবদা (ওমপক পাবদা) একটি ছোট ক্যাটফিশ যা জলজ চাষে সতর্ক ব্যবস্থাপনা প্রয়োজন। এটি ধীর গতির পানি পছন্দ করে এবং স্থানীয় বাজারে অত্যন্ত মূল্যবান।"
+            }
+          },
+          Pangash: {
+            name: "পাঙ্গাস মাছ (Pangasius Fish)",
+            description: {
+              english: "A large catfish species widely farmed in Bangladesh for its fast growth rate and high yield.",
+              bengali: "একটি বড় ক্যাটফিশ প্রজাতি যা বাংলাদেশে এর দ্রুত বৃদ্ধির হার এবং উচ্চ ফলনের জন্য ব্যাপকভাবে চাষ করা হয়।"
+            },
+            details: {
+              english: "Pangasius (Pangasianodon hypophthalmus) is an economically important aquaculture species in Bangladesh. It's hardy, grows quickly, and adapts well to various farming conditions.",
+              bengali: "পাঙ্গাস (প্যাঙ্গাসিয়ানোডন হাইপোফথালমাস) বাংলাদেশে অর্থনৈতিকভাবে গুরুত্বপূর্ণ জলজ চাষের প্রজাতি। এটি শক্ত, দ্রুত বৃদ্ধি পায়, এবং বিভিন্ন চাষের অবস্থার সাথে ভালভাবে খাপ খায়।"
+            }
+          },
         },
-        english: {
-          backToFishList: "Back to Fish List",
-          overview: "Overview",
-          detailedInformation: "Detailed Information",
-          farmingGuidelines: "Farming Guidelines",
-          waterQuality: "Water Quality:",
-          feeding: "Feeding:",
-          stockingDensity: "Stocking Density:",
-          diseasePrevention: "Disease Prevention:",
-          harvesting: "Harvesting:",
-          waterQualityDesc: "Maintain optimal pH levels between 7.0-8.5 for best growth.",
-          feedingDesc: "Feed 2-3 times daily with appropriate fish feed based on size and age.",
-          stockingDensityDesc: "Maintain proper stocking density to prevent overcrowding.",
-          diseasePreventionDesc: "Regular monitoring for signs of disease and maintaining water quality.",
-          harvestingDesc: "Harvest at optimal size for best market value.",
-          error: "Error",
-          fishNotFound: "Fish information not found. Please go back and select a valid fish."
-        }
       };
+    }
 
-      // Function to load fish details
-      function loadFishDetails() {
-        // Get fish type from URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const fishType = urlParams.get('fish');
-        
-        // Get language from localStorage or default to English
-        const language = localStorage.getItem('language') || 'english';
-        const t = fishDetailsTranslations[language];
-        
-        // Update back button to always return to the fish farming page
-        const backBtn = document.querySelector('.back-btn');
-        if (backBtn) {
-          backBtn.href = 'index.html#fish-farming';
-          backBtn.innerHTML = `<i class="fas fa-arrow-left"></i> ${t.backToFishList}`;
-        }
-        
-        // Check if fish type exists in mockData
-        if (fishType && window.mockData && window.mockData.fishTips && window.mockData.fishTips[fishType]) {
-          const fish = window.mockData.fishTips[fishType];
-          const detailsContent = document.getElementById('fish-details-content');
-          
-          detailsContent.innerHTML = `
+    // Override initializeApp to handle fish details page initialization
+    function initializeApp() {
+      console.log("Fish details page loaded");
+
+      // Get the selected language from localStorage
+      const selectedLanguage = localStorage.getItem('language') || 'english';
+
+      // Load fish details
+      loadFishDetails();
+    }
+
+    // Override showSection to prevent errors
+    function showSection() {
+      console.log("Section navigation disabled on details page");
+    }
+  </script>
+  <script>
+    // Translation data for fish details page
+    const fishDetailsTranslations = {
+      bengali: {
+        backToFishList: "মাছের তালিকায় ফিরে যান",
+        overview: "সংক্ষিপ্ত বিবরণ",
+        detailedInformation: "বিস্তারিত তথ্য",
+        farmingGuidelines: "চাষ নির্দেশিকা",
+        waterQuality: "পানির গুণমান:",
+        feeding: "খাওয়ানো:",
+        stockingDensity: "স্টকিং ঘনত্ব:",
+        diseasePrevention: "রোগ প্রতিরোধ:",
+        harvesting: "ফসল কাটা:",
+        waterQualityDesc: "সর্বোত্তম বৃদ্ধির জন্য পিএইচ মাত্রা ৭.০-৮.৫ এর মধ্যে রাখুন।",
+        feedingDesc: "আকার এবং বয়সের উপর ভিত্তি করে উপযুক্ত মাছের খাবার দিয়ে দিনে ২-৩ বার খাওয়ান।",
+        stockingDensityDesc: "অতিরিক্ত ভিড় রোধ করতে উপযুক্ত স্টকিং ঘনত্ব বজায় রাখুন।",
+        diseasePreventionDesc: "রোগের লক্ষণ এবং পানির গুণমান নিয়মিত পর্যবেক্ষণ করুন।",
+        harvestingDesc: "সেরা বাজার মূল্যের জন্য সঠিক আকারে ফসল কাটুন।",
+        error: "ত্রুটি",
+        fishNotFound: "মাছের তথ্য পাওয়া যায়নি। অনুগ্রহ করে ফিরে গিয়ে একটি বৈধ মাছ নির্বাচন করুন।"
+      },
+      english: {
+        backToFishList: "Back to Fish List",
+        overview: "Overview",
+        detailedInformation: "Detailed Information",
+        farmingGuidelines: "Farming Guidelines",
+        waterQuality: "Water Quality:",
+        feeding: "Feeding:",
+        stockingDensity: "Stocking Density:",
+        diseasePrevention: "Disease Prevention:",
+        harvesting: "Harvesting:",
+        waterQualityDesc: "Maintain optimal pH levels between 7.0-8.5 for best growth.",
+        feedingDesc: "Feed 2-3 times daily with appropriate fish feed based on size and age.",
+        stockingDensityDesc: "Maintain proper stocking density to prevent overcrowding.",
+        diseasePreventionDesc: "Regular monitoring for signs of disease and maintaining water quality.",
+        harvestingDesc: "Harvest at optimal size for best market value.",
+        error: "Error",
+        fishNotFound: "Fish information not found. Please go back and select a valid fish."
+      }
+    };
+
+    // Function to load fish details
+    function loadFishDetails() {
+      // Get fish type from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const fishType = urlParams.get('fish');
+
+      // Get language from localStorage or default to English
+      const language = localStorage.getItem('language') || 'english';
+      const t = fishDetailsTranslations[language];
+
+      // Update back button to always return to the fish farming page
+      const backBtn = document.querySelector('.back-btn');
+      if (backBtn) {
+        backBtn.href = 'index.html#fish-farming';
+        backBtn.innerHTML = `<i class="fas fa-arrow-left"></i> ${t.backToFishList}`;
+      }
+
+      // Check if fish type exists in mockData
+      if (fishType && window.mockData && window.mockData.fishTips && window.mockData.fishTips[fishType]) {
+        const fish = window.mockData.fishTips[fishType];
+        const detailsContent = document.getElementById('fish-details-content');
+
+        detailsContent.innerHTML = `
             <div class="fish-header">
               <h1>${fish.name}</h1>
             </div>
@@ -231,12 +253,12 @@
             
             <div class="fish-section">
               <h3>${t.overview}</h3>
-              <p>${fish.description}</p>
+              <p>${fish.description[language.toLowerCase()] || fish.description.english}</p>
             </div>
             
             <div class="fish-section">
               <h3>${t.detailedInformation}</h3>
-              <p>${fish.details}</p>
+              <p>${fish.details[language.toLowerCase()] || fish.details.english}</p>
             </div>
             
             <div class="fish-section">
@@ -250,23 +272,24 @@
               </ul>
             </div>
           `;
-          
-          // Update page title
-          document.title = `${fish.name} - Fish Details`;
-        } else {
-          // Handle invalid fish type
-          const detailsContent = document.getElementById('fish-details-content');
-          detailsContent.innerHTML = `
+
+        // Update page title
+        document.title = `${fish.name} - Fish Details`;
+      } else {
+        // Handle invalid fish type
+        const detailsContent = document.getElementById('fish-details-content');
+        detailsContent.innerHTML = `
             <div class="fish-section">
               <h3>${t.error}</h3>
               <p>${t.fishNotFound}</p>
             </div>
           `;
-        }
       }
-      
-      // Initialize the app when DOM is loaded
-      document.addEventListener('DOMContentLoaded', initializeApp);
-    </script>
-  </body>
+    }
+
+    // Initialize the app when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initializeApp);
+  </script>
+</body>
+
 </html>
