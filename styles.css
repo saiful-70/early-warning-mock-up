@@ -70,8 +70,8 @@
 }
 
 .details-btn:before {
-  content: '\f06e';
-  font-family: 'Font Awesome 5 Free';
+  content: "\f06e";
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
 }
 
@@ -145,13 +145,23 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
-  from { transform: translateY(-50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Root Variables for Consistent Colors */
@@ -181,7 +191,7 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg-light);
   color: var(--text-dark);
   line-height: 1.6;
@@ -232,15 +242,8 @@ header.compact-header {
   background: rgba(255, 255, 255, 0.2);
   padding: 4px 12px;
   border-radius: 20px;
-  backdrop-filter: blur(10px);
 }
 
-.month {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 4px 12px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-}
 
 /* Container */
 .container {
@@ -402,7 +405,7 @@ section.active {
 }
 
 .dashboard-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -634,11 +637,11 @@ section.active {
   border-radius: 50%;
 }
 
-input:checked+.slider {
+input:checked + .slider {
   background: var(--primary-gradient);
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   transform: translateX(26px);
 }
 
@@ -734,7 +737,6 @@ input:checked+.slider:before {
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     opacity: 1;
@@ -1050,4 +1052,132 @@ input:checked+.slider:before {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
+}
+
+/* calendar */
+#calendarWrap {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--bg-white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.controls .form-group {
+  width: 100%;
+}
+
+table.calendar {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1200px;
+  overflow: hidden;
+}
+table.calendar th,
+table.calendar td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  text-align: center;
+  min-width: 58px;
+}
+table.calendar th.month {
+  background: #f7f7f7;
+  user-select: none;
+}
+td.disaster {
+  text-align: left;
+  font-weight: 600;
+  min-width: 200px;
+  background: #fff;
+}
+.legend {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.legend .item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px;
+  border-radius: 4px;
+  background: #fafafa;
+  border: 1px solid #eee;
+}
+.color-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+.note {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+/* Disaster Actions Card */
+.disaster-actions-card {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.disaster-actions-card h3 {
+  background: var(--success-gradient);
+  color: white;
+  padding: 15px 20px;
+  margin: 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#actions-content {
+  padding: 20px;
+}
+
+.action-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.action-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.action-list li:last-child {
+  border-bottom: none;
+}
+
+.action-list li:before {
+  content: "\f058";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: var(--success-color);
+  margin-top: 2px;
+}
+
+.no-actions {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-light);
+  font-style: italic;
 }

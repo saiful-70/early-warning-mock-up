@@ -200,14 +200,109 @@ const mockData = {
       },
     },
   },
-  districtAlerts: [
-    {
-      event: "Heavy Rain",
-      location: "Chittagong",
-      risk: "Medium",
-      notice: "Prepare for flooding (BMD/DoF Alert)",
+  districtAlerts: [    {      event: "Heavy Rain",      location: "Chittagong",      risk: "Medium",      notice: "Prepare for flooding (BMD/DoF Alert)",    },  ],
+  // Fish farmer action recommendations for different disasters
+  disasterActions: {
+    Floods: {
+      actions: [
+        "Strengthen pond embankments to prevent overflow",
+        "Install protective nets to prevent fish escape",
+        "Move valuable brood stock to safer ponds",
+        "Harvest marketable fish before flood peaks",
+        "Monitor water quality closely after flooding subsides"
+      ]
     },
-  ],
+    Cyclones: {
+      actions: [
+        "Lower water levels in ponds by 1-2 feet",
+        "Cover ponds with nets to prevent debris damage",
+        "Move equipment and feed to higher ground",
+        "Secure all structures and equipment",
+        "Prepare emergency oxygen supply systems"
+      ]
+    },
+    "Tidal/Storm Surges": {
+      actions: [
+        "Reinforce coastal pond embankments",
+        "Install barriers to prevent saltwater intrusion",
+        "Move freshwater species to inland ponds if possible",
+        "Prepare freshwater reserves for post-surge dilution",
+        "Monitor salinity levels closely after surge"
+      ]
+    },
+    Droughts: {
+      actions: [
+        "Deepen pond centers to create refuge areas",
+        "Reduce stocking density to minimize oxygen demand",
+        "Install water aeration systems",
+        "Create shade over portions of ponds",
+        "Establish emergency water supply options"
+      ]
+    },
+    Heatwaves: {
+      actions: [
+        "Increase water depth to maintain lower temperatures",
+        "Add aerators to increase oxygen levels",
+        "Feed fish during cooler parts of the day",
+        "Reduce feeding rates to decrease metabolism",
+        "Monitor for signs of disease outbreaks"
+      ]
+    },
+    Coldwaves: {
+      actions: [
+        "Cover portions of ponds with plastic sheets",
+        "Add organic materials to generate heat",
+        "Reduce feeding during extreme cold periods",
+        "Move fish to deeper ponds if possible",
+        "Monitor for unusual behavior or mortality"
+      ]
+    },
+    "Heavy Rainfall": {
+      actions: [
+        "Ensure proper drainage systems are functioning",
+        "Monitor water turbidity and oxygen levels",
+        "Apply lime if pH drops significantly",
+        "Temporarily stop feeding if water is highly turbid",
+        "Check embankments for erosion or damage"
+      ]
+    },
+    Lightning: {
+      actions: [
+        "Install lightning rods near large water bodies",
+        "Avoid using metal equipment during storms",
+        "Turn off electrical equipment during thunderstorms",
+        "Check fish for unusual mortality after lightning strikes",
+        "Have emergency aeration equipment ready"
+      ]
+    },
+    Thunderstorm: {
+      actions: [
+        "Secure loose equipment that could be blown into ponds",
+        "Check water quality after heavy storms",
+        "Be prepared for sudden temperature changes",
+        "Monitor oxygen levels after storms",
+        "Check for debris that may have fallen into ponds"
+      ]
+    },
+    Diseases: {
+      actions: [
+        "Implement strict biosecurity measures",
+        "Regularly monitor fish for signs of disease",
+        "Maintain optimal water quality parameters",
+        "Isolate affected ponds immediately",
+        "Consult with fish health specialists for treatment options"
+      ]
+    },
+    Landslides: {
+      actions: [
+        "Avoid constructing ponds near steep slopes",
+        "Build protective barriers above ponds in hilly areas",
+        "Monitor soil stability during heavy rains",
+        "Have emergency harvest plans ready",
+        "Develop alternative water sources if primary sources are affected"
+      ]
+    }
+  },
   weather: {
     // Mock from OpenWeatherMap/AccuWeather format
     temperature: "28°C",
@@ -455,53 +550,421 @@ function loadAlerts() {
 
 // Load Calendar
 function loadCalendar() {
-  const select = document.getElementById("month-select");
   const details = document.getElementById("calendar-details");
 
-  // Set default to current month from settings
-  select.value = appSettings.currentMonth;
+  // ---- DATA ----
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-  function update() {
-    details.innerHTML = "";
-    const month = select.value;
-    const events = mockData.calendarEvents[month] || [];
+  // All 64 districts
+  const districts = [
+    // Barisal Division
+    "Barguna",
+    "Barisal",
+    "Bhola",
+    "Jhalokati",
+    "Patuakhali",
+    "Pirojpur",
+    // Chittagong Division
+    "Bandarban",
+    "Brahmanbaria",
+    "Chandpur",
+    "Chittagong",
+    "Cox's Bazar",
+    "Comilla",
+    "Feni",
+    "Khagrachari",
+    "Lakshmipur",
+    "Noakhali",
+    "Rangamati",
+    // Dhaka Division
+    "Dhaka",
+    "Faridpur",
+    "Gazipur",
+    "Gopalganj",
+    "Kishoreganj",
+    "Madaripur",
+    "Manikganj",
+    "Munshiganj",
+    "Narayanganj",
+    "Narsingdi",
+    "Rajbari",
+    "Shariatpur",
+    "Tangail",
+    // Khulna Division
+    "Bagerhat",
+    "Chuadanga",
+    "Jessore",
+    "Jhenaidah",
+    "Khulna",
+    "Kushtia",
+    "Magura",
+    "Meherpur",
+    "Narail",
+    "Satkhira",
+    // Mymensingh Division
+    "Jamalpur",
+    "Mymensingh",
+    "Netrokona",
+    "Sherpur",
+    // Rajshahi Division
+    "Bogra",
+    "Joypurhat",
+    "Naogaon",
+    "Natore",
+    "Chapainawabganj",
+    "Pabna",
+    "Rajshahi",
+    "Sirajganj",
+    // Rangpur Division
+    "Dinajpur",
+    "Gaibandha",
+    "Kurigram",
+    "Lalmonirhat",
+    "Nilphamari",
+    "Panchagarh",
+    "Rangpur",
+    "Thakurgaon",
+    // Sylhet Division
+    "Habiganj",
+    "Moulvibazar",
+    "Sunamganj",
+    "Sylhet",
+  ];
 
-    events.forEach((event) => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <div class="card-header">
-          <h3><i class="fas fa-${
-            event.event === "Flood"
-              ? "water"
-              : event.event === "Cyclone"
-              ? "hurricane"
-              : "snowflake"
-          }"></i> ${event.event}</h3>
-        </div>
-        <div class="card-content">
-          <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${
-            event.location
-          }</p>
-          <div class="risk-${event.risk.toLowerCase()}">
-            <i class="fas fa-shield-alt"></i> Risk Level: ${event.risk}
-          </div>
-          <div style="margin-top: 15px; padding: 12px; background: #f8f9fa; border-radius: 8px;">
-            <p><i class="fas fa-tools"></i> <strong>Management Action:</strong> ${
-              event.management
-            }</p>
-          </div>
-        </div>`;
-      details.appendChild(card);
+  // Coastal districts (top-level array)
+  const coastalDistricts = [
+    "Bagerhat",
+    "Barguna",
+    "Barisal",
+    "Bhola",
+    "Chandpur",
+    "Chittagong",
+    "Cox's Bazar",
+    "Feni",
+    "Gopalganj",
+    "Jhalokati",
+    "Khulna",
+    "Lakshmipur",
+    "Narail",
+    "Noakhali",
+    "Patuakhali",
+    "Pirojpur",
+    "Satkhira",
+    "Shariatpur",
+    "Jessore",
+  ];
+
+  // base (default) matrix shared by most districts
+  const baseMatrix = {
+    Coldwaves: { months: ["January", "February", "December"], color: "#FFEB3B" },
+    Diseases: {
+      months: ["January", "February", "March", "April", "May", "June", "July"],
+      color: "#F4A261",
+    },
+    Droughts: { months: ["February", "March", "April", "May"], color: "#0E6A87" },
+    Floods: { months: ["June", "July", "August", "September"], color: "#F28C28" },
+    Heatwaves: { months: ["April", "May", "June"], color: "#9ACD32" },
+    "Heavy Rainfall": { months: ["June", "July", "August"], color: "#FFEB3B" },
+    Lightning: { months: ["June", "July", "August", "September"], color: "#6A1B9A" },
+    Thunderstorm: {
+      months: ["March", "April", "May", "October", "November"],
+      color: "#D16BAF",
+    },
+  };
+
+  // districtOverrides: some example per-district overrides (these replace base entries for that district)
+  const districtOverrides = {
+    // Rangpur Division
+    Rangpur: {
+      Droughts: { months: ["January", "February", "March"], color: "#0E6A87" },
+    },
+    Dinajpur: {
+      Heatwaves: { months: ["May", "June", "July"], color: "#9ACD32" },
+    },
+
+    // Sylhet Division
+    Sylhet: {
+      Floods: {
+        months: ["May", "June", "July", "August", "September"],
+        color: "#F28C28",
+      },
+      Diseases: { months: ["June", "July", "August"], color: "#F4A261" },
+    },
+    Sunamganj: {
+      Floods: {
+        months: ["May", "June", "July", "August", "September", "October"],
+        color: "#F28C28",
+      },
+    },
+
+    // Dhaka Division
+    Dhaka: {
+      Diseases: {
+        months: ["March", "April", "May", "June", "July", "August"],
+        color: "#F4A261",
+      },
+    },
+    Tangail: {
+      Lightning: {
+        months: ["April", "May", "June", "July", "August", "September"],
+        color: "#6A1B9A",
+      },
+    },
+
+    // Khulna Division
+    Jessore: {
+      Droughts: { months: ["February", "March", "April"], color: "#0E6A87" },
+    },
+    Khulna: {
+      Coldwaves: { months: ["January", "December"], color: "#FFEB3B" },
+      Heatwaves: { months: ["April", "May"], color: "#9ACD32" },
+    },
+
+    // Rajshahi Division
+    Rajshahi: {
+      Heatwaves: { months: ["March", "April", "May", "June"], color: "#9ACD32" },
+    },
+    Naogaon: {
+      Droughts: { months: ["March", "April", "May", "June"], color: "#0E6A87" },
+    },
+
+    // Example: hill-district landslide hazard (Bandarban)
+    Bandarban: {
+      Landslides: { months: ["June", "July", "August"], color: "#8B4513" },
+    },
+  };
+
+  // programmatically add coastal hazards to coastal district overrides
+  coastalDistricts.forEach((d) => {
+    districtOverrides[d] = Object.assign({}, districtOverrides[d] || {}, {
+      Cyclones: { months: ["April", "May", "October", "November"], color: "#F28C28" },
+      "Tidal/Storm Surges": {
+        months: ["April", "May", "October", "November"],
+        color: "#0E6A87",
+      },
+    });
+  });
+
+  // ---- helpers ----
+  function buildDistrictMatrix(districtName) {
+    const override = districtOverrides[districtName] || {};
+    const merged = {};
+    // copy base
+    Object.keys(baseMatrix).forEach(
+      (k) =>
+        (merged[k] = { months: [...baseMatrix[k].months], color: baseMatrix[k].color })
+    );
+    // apply overrides (adds or replaces)
+    Object.keys(override).forEach(
+      (k) =>
+        (merged[k] = {
+          months: [...(override[k].months || [])],
+          color: override[k].color || "#ddd",
+        })
+    );
+    return merged; // disaster -> { months, color }
+  }
+
+  // ---- DOM refs ----
+  const districtSelect = document.getElementById("districtSelect");
+  const disasterSelect = document.getElementById("disasterSelect");
+  const calendarWrap = document.getElementById("calendarWrap");
+  const legendWrap = document.getElementById("legend");
+
+  // populate district select and set up listeners
+  function initControls() {
+    districts.forEach((d) => {
+      const o = document.createElement("option");
+      o.value = d;
+      o.textContent = d;
+      districtSelect.appendChild(o);
     });
 
-    if (events.length === 0) {
-      details.innerHTML =
-        '<div class="no-events">No events scheduled for this month.</div>';
-    }
+    districtSelect.addEventListener("change", onDistrictChange);
+    disasterSelect.addEventListener("change", onDisasterChange);
+
+    // defaults
+    districtSelect.value = districts.includes("Dhaka") ? "Dhaka" : districts[0];
+    populateDisasterSelectAndRender();
   }
-  select.onchange = update;
-  update(); // Initial load
+
+  // when district changes: rebuild matrix and repopulate disasters dropdown
+  function populateDisasterSelectAndRender() {
+    const district = districtSelect.value;
+    const matrix = buildDistrictMatrix(district);
+    const disasters = Object.keys(matrix).sort((a, b) => a.localeCompare(b));
+    // populate disaster select
+    disasterSelect.innerHTML = "";
+    const allOpt = document.createElement("option");
+    allOpt.value = "all";
+    allOpt.textContent = "All disasters";
+    disasterSelect.appendChild(allOpt);
+    disasters.forEach((d) => {
+      const o = document.createElement("option");
+      o.value = d;
+      o.textContent = d;
+      disasterSelect.appendChild(o);
+    });
+    disasterSelect.value = "all";
+    renderCalendar(district, "all");
+  }
+
+  function onDistrictChange() {
+    populateDisasterSelectAndRender();
+    const disaster = disasterSelect.value;
+    renderDisasterActions(disaster);
+  }
+  function onDisasterChange() {
+    const district = districtSelect.value;
+    const disaster = disasterSelect.value;
+    renderCalendar(district, disaster);
+    renderDisasterActions(disaster);
+  }
+
+  // render calendar: if selectedDisaster === 'all' show all rows; else show only that row
+  function renderCalendar(district, selectedDisaster) {
+    const matrix = buildDistrictMatrix(district);
+    const disasters =
+      selectedDisaster === "all" ? Object.keys(matrix) : [selectedDisaster];
+
+    // table
+    const table = document.createElement("table");
+    table.className = "calendar";
+    const thead = document.createElement("thead");
+    const hrow = document.createElement("tr");
+    const thTitle = document.createElement("th");
+    thTitle.textContent = "Disaster / Month";
+    hrow.appendChild(thTitle);
+    months.forEach((m) => {
+      const th = document.createElement("th");
+      th.className = "month";
+      th.textContent = m.slice(0, 3);
+      hrow.appendChild(th);
+    });
+    thead.appendChild(hrow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+
+    // order disasters: put coastal hazards at end if present
+    disasters.sort((a, b) => {
+      if (a === "Cyclones") return 1;
+      if (b === "Cyclones") return -1;
+      if (a === "Tidal/Storm Surges") return 1;
+      if (b === "Tidal/Storm Surges") return -1;
+      return a.localeCompare(b);
+    });
+
+    disasters.forEach((disaster) => {
+      const entry = matrix[disaster] || { months: [], color: "#fff" };
+      const row = document.createElement("tr");
+      const tdName = document.createElement("td");
+      tdName.className = "disaster";
+      tdName.textContent = disaster;
+      row.appendChild(tdName);
+
+      months.forEach((m) => {
+        const td = document.createElement("td");
+        if (entry.months.includes(m)) {
+          td.style.backgroundColor = entry.color;
+          td.title = `${disaster} — ${m}`;
+        } else {
+          td.style.backgroundColor = "#fff";
+        }
+        row.appendChild(td);
+      });
+
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    calendarWrap.innerHTML = "";
+    calendarWrap.appendChild(table);
+
+    renderLegend(disasters, matrix);
+  }
+
+  function renderLegend(visibleDisasters, matrix) {
+    legendWrap.innerHTML = "";
+    visibleDisasters.forEach((d) => {
+      const e = matrix[d];
+      if (!e) return;
+      const item = document.createElement("div");
+      item.className = "item";
+      const box = document.createElement("div");
+      box.className = "color-box";
+      box.style.backgroundColor = e.color || "#ddd";
+      const label = document.createElement("div");
+      label.textContent = d;
+      item.appendChild(box);
+      item.appendChild(label);
+      legendWrap.appendChild(item);
+    });
+  }
+
+  // Render disaster actions for fish farmers
+  function renderDisasterActions(selectedDisaster) {
+    const actionsContent = document.getElementById("actions-content");
+    
+    if (selectedDisaster === "all") {
+      // Show a message to select a specific disaster
+      actionsContent.innerHTML = `
+        <div class="note">
+          <i class="fas fa-info-circle"></i> Please select a specific disaster to see recommended actions for fish farmers.
+        </div>
+      `;
+      return;
+    }
+    
+    // Get actions for the selected disaster
+    const disasterAction = mockData.disasterActions[selectedDisaster];
+    
+    if (!disasterAction || !disasterAction.actions || disasterAction.actions.length === 0) {
+      actionsContent.innerHTML = `
+        <div class="no-actions">
+          <i class="fas fa-exclamation-circle"></i> No specific actions available for ${selectedDisaster}.
+        </div>
+      `;
+      return;
+    }
+    
+    // Create list of actions
+    let actionsList = '<ul class="action-list">';
+    disasterAction.actions.forEach(action => {
+      actionsList += `<li>${action}</li>`;
+    });
+    actionsList += '</ul>';
+    
+    actionsContent.innerHTML = actionsList;
+  }
+
+  // init
+  initControls();
+  
+  // Initialize disaster actions
+  renderDisasterActions("all");
+
+  // debug access:
+  window.__DISASTER_DATA = {
+    months,
+    districts,
+    coastalDistricts,
+    baseMatrix,
+    districtOverrides,
+  };
 }
 
 // Load Tips - Fish Farming Accordion List
@@ -841,7 +1304,9 @@ function applyLanguage(language) {
   const calendarBtn = document.querySelector('button[data-section="calendar"] span');
   if (calendarBtn) calendarBtn.textContent = t.calendar;
 
-  const fishFarmingBtn = document.querySelector('button[data-section="fish-farming"] span');
+  const fishFarmingBtn = document.querySelector(
+    'button[data-section="fish-farming"] span'
+  );
   if (fishFarmingBtn) fishFarmingBtn.textContent = t.fishFarming;
 
   const settingsBtn = document.querySelector('button[data-section="settings"] span');

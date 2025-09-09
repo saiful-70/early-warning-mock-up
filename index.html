@@ -105,17 +105,32 @@
 
 
     <section id="calendar">
-      <div class="form-group">
-        <label for="month-select">
-          <i class="fas fa-calendar"></i> Select Month:
-        </label>
-        <select id="month-select" class="styled-select">
-          <option value="September">September 2025</option>
-          <option value="October">October 2025</option>
-          <option value="November">November 2025</option>
-        </select>
+      <div id="calendar-container">
+        <h2>Disaster Calendar — District & Disaster</h2>
+
+        <div class="controls">
+          <div class="form-group">
+            <label for="districtSelect">
+              <i class="fas fa-map-marker-alt"></i> District:
+            </label>
+            <select id="districtSelect" class="styled-select"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="disasterSelect">
+              <i class="fas fa-exclamation-triangle"></i> Disaster:
+            </label>
+            <select id="disasterSelect" class="styled-select"></select>
+          </div>
+        </div>
+
+        <div id="calendarWrap"></div>
+        <div class="legend" id="legend"></div>
       </div>
-      <div id="calendar-details"></div>
+      <div id="disaster-actions" class="disaster-actions-card">
+        <h3><i class="fas fa-tools"></i> Fish Farmer Actions</h3>
+        <div id="actions-content"></div>
+      </div>
     </section>
 
     <section id="tips">
