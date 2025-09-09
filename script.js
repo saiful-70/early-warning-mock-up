@@ -82,7 +82,6 @@ function showSection(sectionId) {
 
   // Load section-specific data
   if (sectionId === 'dashboard') loadDashboard();
-  if (sectionId === 'alerts') loadAlerts();
   if (sectionId === 'calendar') loadCalendar();
   if (sectionId === 'tips') loadTips();
   if (sectionId === 'district') loadDistrict();
@@ -402,6 +401,44 @@ function showSuccessMessage(message) {
   }, 3000);
 }
 
+// Show Alert Modal
+function showAlertModal() {
+  const modal = document.getElementById('alert-modal');
+  const modalAlertsList = document.getElementById('modal-alerts-list');
+  modalAlertsList.innerHTML = '';
+  
+  // Filter high risk alerts
+  const urgentAlerts = mockData.personalizedAlerts.filter(alert => 
+    alert.risk === 'High' && (alert.location === appSettings.selectedDistrict || appSettings.notifications.highRisk)
+  );
+  
+  if (urgentAlerts.length > 0) {
+    urgentAlerts.forEach(alert => {
+      const alertElement = document.createElement('div');
+      alertElement.className = 'card';
+      alertElement.innerHTML = `
+        <div class="card-header">
+          <h3><i class="fas fa-exclamation-triangle"></i> ${alert.event}</h3>
+          <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${alert.location}</p>
+        </div>
+        <div class="card-content">
+          <div class="risk-${alert.risk.toLowerCase()}">
+            <i class="fas fa-shield-alt"></i> Risk Level: ${alert.risk}
+          </div>
+        </div>`;
+      modalAlertsList.appendChild(alertElement);
+    });
+    
+    modal.style.display = 'block';
+  }
+}
+
+// Close Alert Modal
+function closeAlertModal() {
+  const modal = document.getElementById('alert-modal');
+  modal.style.display = 'none';
+}
+
 // Initialize app
 function initializeApp() {
   // Load settings from localStorage
@@ -417,6 +454,12 @@ function initializeApp() {
 
   // Initialize dashboard
   loadDashboard();
+  
+  // Show alert modal if there are urgent alerts
+  showAlertModal();
+  
+  // Add event listener for close button
+  document.querySelector('.close-btn').addEventListener('click', closeAlertModal);
 }
 
 // Initial Load
