@@ -210,6 +210,13 @@ const mockData = {
         "Move valuable brood stock to safer ponds",
         "Harvest marketable fish before flood peaks",
         "Monitor water quality closely after flooding subsides"
+      ],
+      actionsBengali: [
+        "বন্যার পানি প্রবাহ রোধ করতে পুকুরের পাড় শক্তিশালী করুন",
+        "মাছ পালিয়ে যাওয়া রোধ করতে সুরক্ষামূলক জাল স্থাপন করুন",
+        "মূল্যবান প্রজনন স্টক নিরাপদ পুকুরে স্থানান্তর করুন",
+        "বন্যার শীর্ষ সময়ের আগে বাজারজাত মাছ সংগ্রহ করুন",
+        "বন্যার পানি কমার পর পানির গুণমান নিবিড়ভাবে পর্যবেক্ষণ করুন"
       ]
     },
     Cyclones: {
@@ -219,6 +226,13 @@ const mockData = {
         "Move equipment and feed to higher ground",
         "Secure all structures and equipment",
         "Prepare emergency oxygen supply systems"
+      ],
+      actionsBengali: [
+        "পুকুরের পানির স্তর ১-২ ফুট কমিয়ে দিন",
+        "আবর্জনা ক্ষতি রোধ করতে পুকুর জাল দিয়ে ঢেকে রাখুন",
+        "সরঞ্জাম এবং খাবার উঁচু জায়গায় সরিয়ে রাখুন",
+        "সমস্ত কাঠামো এবং সরঞ্জাম সুরক্ষিত করুন",
+        "জরুরী অক্সিজেন সরবরাহ ব্যবস্থা প্রস্তুত রাখুন"
       ]
     },
     "Tidal/Storm Surges": {
@@ -228,6 +242,13 @@ const mockData = {
         "Move freshwater species to inland ponds if possible",
         "Prepare freshwater reserves for post-surge dilution",
         "Monitor salinity levels closely after surge"
+      ],
+      actionsBengali: [
+        "উপকূলীয় পুকুরের পাড় শক্তিশালী করুন",
+        "লবণাক্ত পানি প্রবেশ রোধ করতে বাধা স্থাপন করুন",
+        "সম্ভব হলে মিঠা পানির প্রজাতিগুলিকে অভ্যন্তরীণ পুকুরে স্থানান্তর করুন",
+        "জলোচ্ছ্বাসের পরে পানি পাতলা করার জন্য মিঠা পানির সংরক্ষণ প্রস্তুত রাখুন",
+        "জলোচ্ছ্বাসের পরে লবণাক্ততার মাত্রা নিবিড়ভাবে পর্যবেক্ষণ করুন"
       ]
     },
     Droughts: {
@@ -237,6 +258,13 @@ const mockData = {
         "Install water aeration systems",
         "Create shade over portions of ponds",
         "Establish emergency water supply options"
+      ],
+      actionsBengali: [
+        "আশ্রয় এলাকা তৈরি করতে পুকুরের কেন্দ্র গভীর করুন",
+        "অক্সিজেনের চাহিদা কমাতে স্টকিং ঘনত্ব কমান",
+        "পানি বায়ুচলাচল ব্যবস্থা স্থাপন করুন",
+        "পুকুরের অংশগুলির উপর ছায়া তৈরি করুন",
+        "জরুরী পানি সরবরাহের বিকল্প স্থাপন করুন"
       ]
     },
     Heatwaves: {
@@ -246,6 +274,13 @@ const mockData = {
         "Feed fish during cooler parts of the day",
         "Reduce feeding rates to decrease metabolism",
         "Monitor for signs of disease outbreaks"
+      ],
+      actionsBengali: [
+        "নিম্ন তাপমাত্রা বজায় রাখতে পানির গভীরতা বাড়ান",
+        "অক্সিজেনের মাত্রা বাড়াতে এয়ারেটর যোগ করুন",
+        "দিনের ঠান্ডা সময়ে মাছকে খাওয়ান",
+        "বিপাক কমাতে খাওয়ানোর হার কমান",
+        "রোগের প্রাদুর্ভাবের লক্ষণগুলি পর্যবেক্ষণ করুন"
       ]
     },
     Coldwaves: {
@@ -255,6 +290,13 @@ const mockData = {
         "Reduce feeding during extreme cold periods",
         "Move fish to deeper ponds if possible",
         "Monitor for unusual behavior or mortality"
+      ],
+      actionsBengali: [
+        "পুকুরের অংশগুলি প্লাস্টিক শীট দিয়ে ঢেকে রাখুন",
+        "তাপ উৎপন্ন করতে জৈব উপাদান যোগ করুন",
+        "অত্যধিক ঠান্ডার সময়ে খাওয়ানো কমান",
+        "সম্ভব হলে মাছকে গভীর পুকুরে স্থানান্তর করুন",
+        "অস্বাভাবিক আচরণ বা মৃত্যুর জন্য পর্যবেক্ষণ করুন"
       ]
     },
     "Heavy Rainfall": {
@@ -264,6 +306,13 @@ const mockData = {
         "Apply lime if pH drops significantly",
         "Temporarily stop feeding if water is highly turbid",
         "Check embankments for erosion or damage"
+      ],
+      actionsBengali: [
+        "উপযুক্ত নিষ্কাশন ব্যবস্থা কার্যকর আছে তা নিশ্চিত করুন",
+        "পানির ঘোলাটে এবং অক্সিজেনের মাত্রা পর্যবেক্ষণ করুন",
+        "pH উল্লেখযোগ্যভাবে কমে গেলে চুন প্রয়োগ করুন",
+        "পানি অত্যধিক ঘোলা হলে অস্থায়ীভাবে খাওয়ানো বন্ধ করুন",
+        "ক্ষয় বা ক্ষতির জন্য পাড়গুলি পরীক্ষা করুন"
       ]
     },
     Lightning: {
@@ -273,6 +322,13 @@ const mockData = {
         "Turn off electrical equipment during thunderstorms",
         "Check fish for unusual mortality after lightning strikes",
         "Have emergency aeration equipment ready"
+      ],
+      actionsBengali: [
+        "বড় জলাশয়ের কাছে বজ্রপাত রড স্থাপন করুন",
+        "ঝড়ের সময় ধাতব সরঞ্জাম ব্যবহার এড়িয়ে চলুন",
+        "বজ্রঝড়ের সময় বৈদ্যুতিক সরঞ্জাম বন্ধ করুন",
+        "বজ্রপাতের পরে অস্বাভাবিক মৃত্যুর জন্য মাছ পরীক্ষা করুন",
+        "জরুরী বায়ুচলাচল সরঞ্জাম প্রস্তুত রাখুন"
       ]
     },
     Thunderstorm: {
@@ -282,6 +338,13 @@ const mockData = {
         "Be prepared for sudden temperature changes",
         "Monitor oxygen levels after storms",
         "Check for debris that may have fallen into ponds"
+      ],
+      actionsBengali: [
+        "আলগা সরঞ্জাম যা পুকুরে উড়ে যেতে পারে তা সুরক্ষিত করুন",
+        "ভারী ঝড়ের পরে পানির গুণমান পরীক্ষা করুন",
+        "হঠাৎ তাপমাত্রা পরিবর্তনের জন্য প্রস্তুত থাকুন",
+        "ঝড়ের পরে অক্সিজেনের মাত্রা পর্যবেক্ষণ করুন",
+        "পুকুরে পড়ে যাওয়া আবর্জনা পরীক্ষা করুন"
       ]
     },
     Diseases: {
@@ -291,6 +354,13 @@ const mockData = {
         "Maintain optimal water quality parameters",
         "Isolate affected ponds immediately",
         "Consult with fish health specialists for treatment options"
+      ],
+      actionsBengali: [
+        "কঠোর জৈব নিরাপত্তা ব্যবস্থা বাস্তবায়ন করুন",
+        "রোগের লক্ষণগুলির জন্য নিয়মিত মাছ পর্যবেক্ষণ করুন",
+        "অনুকূল পানির গুণমান পরামিতি বজায় রাখুন",
+        "প্রভাবিত পুকুরগুলি অবিলম্বে আলাদা করুন",
+        "চিকিৎসার বিকল্পগুলির জন্য মাছের স্বাস্থ্য বিশেষজ্ঞদের সাথে পরামর্শ করুন"
       ]
     },
     Landslides: {
@@ -550,7 +620,6 @@ function loadAlerts() {
 
 // Load Calendar
 function loadCalendar() {
-  const details = document.getElementById("calendar-details");
 
   // ---- DATA ----
   const months = [
@@ -806,16 +875,44 @@ function loadCalendar() {
     const district = districtSelect.value;
     const matrix = buildDistrictMatrix(district);
     const disasters = Object.keys(matrix).sort((a, b) => a.localeCompare(b));
+    
+    // Get translations for current language
+    const t = translations[appSettings.language];
+    
     // populate disaster select
     disasterSelect.innerHTML = "";
     const allOpt = document.createElement("option");
     allOpt.value = "all";
-    allOpt.textContent = "All disasters";
+    
+    // Translate "All disasters" based on language
+    allOpt.textContent = appSettings.language === "bengali" ? "সব দুর্যোগ" : "All disasters";
     disasterSelect.appendChild(allOpt);
+    // Disaster translations for Bengali
+    const bengaliDisasters = {
+      "Floods": "বন্যা",
+      "Cyclones": "ঘূর্ণিঝড়",
+      "Tidal/Storm Surges": "জলোচ্ছ্বাস",
+      "Droughts": "খরা",
+      "Heatwaves": "তাপপ্রবাহ",
+      "Coldwaves": "শীতপ্রবাহ",
+      "Heavy Rainfall": "ভারী বৃষ্টিপাত",
+      "Lightning": "বজ্রপাত",
+      "Thunderstorm": "বজ্রঝড়",
+      "Diseases": "রোগ",
+      "Landslides": "ভূমিধস"
+    };
+    
     disasters.forEach((d) => {
       const o = document.createElement("option");
       o.value = d;
-      o.textContent = d;
+      
+      // Use translated disaster name if available
+      if (appSettings.language === "bengali") {
+        o.textContent = bengaliDisasters[d] || d;
+      } else {
+        o.textContent = d;
+      }
+      
       disasterSelect.appendChild(o);
     });
     disasterSelect.value = "all";
@@ -846,12 +943,38 @@ function loadCalendar() {
     const thead = document.createElement("thead");
     const hrow = document.createElement("tr");
     const thTitle = document.createElement("th");
-    thTitle.textContent = "Disaster / Month";
+    // Use translated text for the header
+    thTitle.textContent = appSettings.language === "bengali" ? "দুর্যোগ / মাস" : "Disaster / Month";
     hrow.appendChild(thTitle);
     months.forEach((m) => {
       const th = document.createElement("th");
       th.className = "month";
-      th.textContent = m.slice(0, 3);
+      
+      // Get month abbreviation based on language
+      let monthAbbr;
+      if (appSettings.language === "bengali") {
+        // Bengali month abbreviations
+        const bengaliMonths = {
+          "January": "জানু",
+          "February": "ফেব্রু",
+          "March": "মার্চ",
+          "April": "এপ্রি",
+          "May": "মে",
+          "June": "জুন",
+          "July": "জুলা",
+          "August": "আগ",
+          "September": "সেপ্টে",
+          "October": "অক্টো",
+          "November": "নভে",
+          "December": "ডিসে"
+        };
+        monthAbbr = bengaliMonths[m] || m.slice(0, 3);
+      } else {
+        // Default English abbreviation
+        monthAbbr = m.slice(0, 3);
+      }
+      
+      th.textContent = monthAbbr;
       hrow.appendChild(th);
     });
     thead.appendChild(hrow);
@@ -898,7 +1021,22 @@ function loadCalendar() {
   }
 
   function renderLegend(visibleDisasters, matrix) {
-    legendWrap.innerHTML = "";
+    legendWrap.innerHTML = "";    
+    // Disaster translations for Bengali
+    const bengaliDisasters = {
+      "Floods": "বন্যা",
+      "Cyclones": "ঘূর্ণিঝড়",
+      "Tidal/Storm Surges": "জলোচ্ছ্বাস",
+      "Droughts": "খরা",
+      "Heatwaves": "তাপপ্রবাহ",
+      "Coldwaves": "শীতপ্রবাহ",
+      "Heavy Rainfall": "ভারী বৃষ্টিপাত",
+      "Lightning": "বজ্রপাত",
+      "Thunderstorm": "বজ্রঝড়",
+      "Diseases": "রোগ",
+      "Landslides": "ভূমিধস"
+    };
+    
     visibleDisasters.forEach((d) => {
       const e = matrix[d];
       if (!e) return;
@@ -908,7 +1046,14 @@ function loadCalendar() {
       box.className = "color-box";
       box.style.backgroundColor = e.color || "#ddd";
       const label = document.createElement("div");
-      label.textContent = d;
+      
+      // Use translated disaster name if available
+      if (appSettings.language === "bengali") {
+        label.textContent = bengaliDisasters[d] || d;
+      } else {
+        label.textContent = d;
+      }
+      
       item.appendChild(box);
       item.appendChild(label);
       legendWrap.appendChild(item);
@@ -921,9 +1066,13 @@ function loadCalendar() {
     
     if (selectedDisaster === "all") {
       // Show a message to select a specific disaster
+      const selectMessage = appSettings.language === "bengali" ? 
+        "অনুগ্রহ করে মাছ চাষীদের জন্য প্রস্তাবিত পদক্ষেপ দেখতে একটি নির্দিষ্ট দুর্যোগ নির্বাচন করুন।" : 
+        "Please select a specific disaster to see recommended actions for fish farmers.";
+      
       actionsContent.innerHTML = `
         <div class="note">
-          <i class="fas fa-info-circle"></i> Please select a specific disaster to see recommended actions for fish farmers.
+          <i class="fas fa-info-circle"></i> ${selectMessage}
         </div>
       `;
       return;
@@ -933,9 +1082,13 @@ function loadCalendar() {
     const disasterAction = mockData.disasterActions[selectedDisaster];
     
     if (!disasterAction || !disasterAction.actions || disasterAction.actions.length === 0) {
+      const noActionsMessage = appSettings.language === "bengali" ? 
+        `${selectedDisaster} এর জন্য কোন নির্দিষ্ট পদক্ষেপ উপলব্ধ নেই।` : 
+        `No specific actions available for ${selectedDisaster}.`;
+      
       actionsContent.innerHTML = `
         <div class="no-actions">
-          <i class="fas fa-exclamation-circle"></i> No specific actions available for ${selectedDisaster}.
+          <i class="fas fa-exclamation-circle"></i> ${noActionsMessage}
         </div>
       `;
       return;
@@ -943,7 +1096,12 @@ function loadCalendar() {
     
     // Create list of actions
     let actionsList = '<ul class="action-list">';
-    disasterAction.actions.forEach(action => {
+    
+    // Use Bengali actions if available and language is Bengali
+    const actions = (appSettings.language === "bengali" && disasterAction.actionsBengali) ? 
+      disasterAction.actionsBengali : disasterAction.actions;
+      
+    actions.forEach(action => {
       actionsList += `<li>${action}</li>`;
     });
     actionsList += '</ul>';
