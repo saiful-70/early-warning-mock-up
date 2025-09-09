@@ -1180,12 +1180,12 @@ input:checked+.slider:before {
 }
 
 .nav-btn.active {
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
+  color: #ff0000;
+  background: rgba(255, 0, 0, 0.1);
 }
 
 .nav-btn:hover {
-  color: #667eea;
+  color: #ff0000;
   transform: translateY(-2px);
 }
 
