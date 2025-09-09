@@ -593,6 +593,62 @@ function updateWeatherInfo() {
   if (humidityElement) humidityElement.textContent = `${weatherData.humidity}%`;
 }
 
+// Function to load emergency alerts
+function loadEmergencyAlerts() {
+  const emergencyAlertsData = [
+    {
+      department: "আবহাওয়া অধিদপ্তর",
+      message: "আগামী ২৪ ঘন্টায় ঢাকা, ময়মনসিংহ ও সিলেট বিভাগে ভারী বৃষ্টিপাতের সম্ভাবনা রয়েছে। মাছ চাষিরা সতর্ক থাকুন।",
+      priority: "high",
+      time: "২ ঘন্টা আগে"
+    },
+    {
+      department: "দুর্যোগ ব্যবস্থাপনা অধিদপ্তর",
+      message: "রংপুর ও কুড়িগ্রাম জেলায় নদীর পানি বৃদ্ধি পেয়েছে। মৎস্য চাষীরা প্রয়োজনীয় ব্যবস্থা নিন।",
+      priority: "medium",
+      time: "৫ ঘন্টা আগে"
+    },
+    {
+      department: "মৎস্য অধিদপ্তর",
+      message: "বর্তমান আবহাওয়ার কারণে পুকুরে অক্সিজেনের মাত্রা কমে যেতে পারে। নিয়মিত পরীক্ষা করুন।",
+      priority: "high",
+      time: "৩ ঘন্টা আগে"
+    }
+  ];
+
+  const emergencyAlertsContainer = document.getElementById('emergency-alerts');
+  if (!emergencyAlertsContainer) return;
+
+  if (emergencyAlertsData.length === 0) {
+    emergencyAlertsContainer.innerHTML = `
+      <div class="no-emergency-alerts">
+        <p style="color: rgba(255,255,255,0.8); text-align: center; margin: 15px 0; font-size: 12px;">
+          <i class="fas fa-check-circle"></i> বর্তমানে কোন জরুরি সতর্কবার্তা নেই
+        </p>
+      </div>
+    `;
+    return;
+  }
+
+  let alertsHTML = '';
+  emergencyAlertsData.forEach(alert => {
+    alertsHTML += `
+      <div class="emergency-alert-item">
+        <div class="alert-item-header">
+          <span class="alert-department">${alert.department}</span>
+          <span class="alert-time">${alert.time}</span>
+        </div>
+        <p class="alert-message">${alert.message}</p>
+        <span class="alert-priority ${alert.priority}">
+          ${alert.priority === 'high' ? 'উচ্চ অগ্রাধিকার' : 'মধ্যম অগ্রাধিকার'}
+        </span>
+      </div>
+    `;
+  });
+
+  emergencyAlertsContainer.innerHTML = alertsHTML;
+}
+
 // Load dashboard content
 function loadDashboard() {
   // Define t at the beginning of the function to ensure it's available throughout
@@ -713,6 +769,9 @@ function loadDashboard() {
 
   // Update weather information section
   updateWeatherInfo();
+
+  // Load emergency alerts
+  loadEmergencyAlerts();
 }
 
 // Update Header Information
