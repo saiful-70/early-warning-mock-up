@@ -18,7 +18,7 @@ const translations = {
     riskLevel: "ঝুঁকির মাত্রা:",
     managementAction: "ব্যবস্থাপনা পদক্ষেপ:",
     noEvents: "এই মাসে কোন ইভেন্ট নির্ধারিত নেই।",
-    // Tips
+    // Fish Farming
     selectFish: "মাছ নির্বাচন করুন:",
     selectWeek: "সপ্তাহ নির্বাচন করুন:",
     recommendedAction: "প্রস্তাবিত পদক্ষেপ:",
@@ -62,7 +62,7 @@ const translations = {
     riskLevel: "Risk Level:",
     managementAction: "Management Action:",
     noEvents: "No events scheduled for this month.",
-    // Tips
+    // Fish Farming
     selectFish: "Select Fish:",
     selectWeek: "Select Week:",
     recommendedAction: "Recommended Action:",
@@ -83,7 +83,7 @@ const translations = {
     // Navigation
     home: "Home",
     calendar: "Calendar",
-    tips: "Tips",
+    tips: "Fish Farming",
     settings: "Settings",
     // Modal
     urgentAlerts: "Urgent Alerts",
@@ -218,16 +218,21 @@ function showSection(sectionId) {
   document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"));
 
   // Add active class to selected section and nav button
-  document.getElementById(sectionId).classList.add("active");
+  // Handle the renamed section ID
+  const actualSectionId = sectionId === "fish-farming" ? "tips" : sectionId;
+  document.getElementById(actualSectionId).classList.add("active");
   const navBtn = document.querySelector(`[data-section="${sectionId}"]`);
   if (navBtn) navBtn.classList.add("active");
 
   // Load section-specific data
   if (sectionId === "dashboard") loadDashboard();
   if (sectionId === "calendar") loadCalendar();
-  if (sectionId === "tips") loadTips();
+  if (sectionId === "tips" || sectionId === "fish-farming") loadTips();
   if (sectionId === "district") loadDistrict();
   if (sectionId === "settings") loadSettings();
+
+  // Update URL hash for navigation
+  window.location.hash = sectionId;
 } // Load dashboard content
 function loadDashboard() {
   // Define t at the beginning of the function to ensure it's available throughout
@@ -315,7 +320,7 @@ function loadDashboard() {
           <span class="week-badge">Fish Farming</span>
         </div>
         <div class="tip-text">${fishInfo.description}</div>
-        <a href="fish-details.html?fish=${randomFish}" class="tip-link">View Details</a>
+        <a href="fish-details.html?fish=${randomFish}&section=dashboard" class="tip-link">View Details</a>
       </div>`;
   }
 
@@ -530,15 +535,13 @@ function loadTips() {
   };
 
   window.showFishDetails = function (fishType) {
-    // Navigate to fish details page with fish type as parameter
-    window.location.href = `fish-details.html?fish=${fishType}`;
+    // Navigate to fish details page with fish type and current section as parameters
+    const currentSection = document.querySelector("section.active").id;
+    window.location.href = `fish-details.html?fish=${fishType}&section=${currentSection}`;
   };
 
   // Initialize with accordion list
   createAccordionList();
-
-  // Update when fish selection changes
-  fishSelect.onchange = showSelectedFish;
 }
 
 // Load District & Weather
@@ -668,6 +671,9 @@ function saveSettings() {
   const newLanguage = document.getElementById("language-select").value;
   const languageChanged = appSettings.language !== newLanguage;
   appSettings.language = newLanguage;
+
+  // Store language separately for access by other pages
+  localStorage.setItem("language", newLanguage);
 
   appSettings.notifications.highRisk =
     document.getElementById("high-risk-toggle").checked;
@@ -849,12 +855,20 @@ function initializeApp() {
 
   // Apply language and initialize app
   try {
+    // Store language separately for access by other pages
+    localStorage.setItem("language", appSettings.language);
+
     // Apply language settings immediately
     applyLanguage(appSettings.language);
 
     // Load settings and dashboard
     loadSettings();
     loadDashboard();
+
+    // Check URL hash for navigation
+    const hash = window.location.hash.substring(1);
+
+    console.log(hash)
 
     // Check if first time visit
     const isFirstLoad = localStorage.getItem("isFirstLoad") !== "false";
@@ -863,6 +877,12 @@ function initializeApp() {
       // First time users see settings
       localStorage.setItem("isFirstLoad", "false");
       showSection("settings");
+    } else if (
+      hash &&
+      ["dashboard", "calendar", "tips", "fish-farming", "settings"].includes(hash)
+    ) {
+      // If valid hash exists in URL, show that section
+      showSection(hash);
     } else {
       // Returning users see dashboard with alerts
       showSection("dashboard");
