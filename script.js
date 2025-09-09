@@ -565,6 +565,34 @@ function showFishDetails(fishType) {
   window.location.href = `fish-details.html?fish=${fishType}`;
 }
 
+// Function to update weather information
+function updateWeatherInfo() {
+  // Simulate weather data (in a real app, this would come from an API)
+  const weatherData = {
+    temperature: Math.floor(Math.random() * 10) + 25, // 25-35°C
+    rainChance: Math.floor(Math.random() * 50) + 30, // 30-80%
+    windSpeed: Math.floor(Math.random() * 15) + 10, // 10-25 km/h
+    humidity: Math.floor(Math.random() * 20) + 70, // 70-90%
+    windDirection: ['উত্তর', 'দক্ষিণ', 'পূর্ব', 'পশ্চিম', 'উত্তর-পূর্ব', 'উত্তর-পশ্চিম', 'দক্ষিণ-পূর্ব', 'দক্ষিণ-পশ্চিম'][Math.floor(Math.random() * 8)]
+  };
+
+  // Update DOM elements
+  const tempElement = document.getElementById('temperature');
+  const rainElement = document.getElementById('rain-chance');
+  const windElement = document.getElementById('wind-speed');
+  const humidityElement = document.getElementById('humidity');
+
+  if (tempElement) tempElement.textContent = `${weatherData.temperature}°C`;
+  if (rainElement) rainElement.textContent = `${weatherData.rainChance}%`;
+  if (windElement) {
+    windElement.textContent = `${weatherData.windSpeed} কিমি/ঘন্টা`;
+    // Update wind direction in the description
+    const windDesc = windElement.parentElement.querySelector('.weather-desc');
+    if (windDesc) windDesc.textContent = `${weatherData.windDirection} দিক`;
+  }
+  if (humidityElement) humidityElement.textContent = `${weatherData.humidity}%`;
+}
+
 // Load dashboard content
 function loadDashboard() {
   // Define t at the beginning of the function to ensure it's available throughout
@@ -682,6 +710,9 @@ function loadDashboard() {
     const weatherCardEl = document.getElementById("weather-mobile-card");
     if (weatherCardEl) weatherCardEl.style.display = "none";
   }
+
+  // Update weather information section
+  updateWeatherInfo();
 }
 
 // Update Header Information
