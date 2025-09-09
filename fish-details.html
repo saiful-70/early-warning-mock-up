@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fish Details - EWS App for Aquaculture Farmers</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .fish-details-container {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      
+      .fish-header {
+        color: black;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .fish-image {
+        background-color: white;
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+        border-radius: var(--border-radius);
+        margin-bottom: 20px;
+      }
+      
+      .fish-section {
+        margin-bottom: 25px;
+        padding: 20px;
+        background-color: var(--bg-white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--card-shadow);
+      }
+
+      .fish-section ul {
+        padding-left: 20px;
+      }
+      
+      .fish-section h3 {
+        margin-top: 0;
+        color: var(--primary-color);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+      
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: var(--primary-color);
+        color: black;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        margin-bottom: 20px;
+        text-decoration: none;
+      }
+      
+      .back-btn:hover {
+        background-color: var(--secondary-color);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Compact Header -->
+    <header class="compact-header">
+      <div class="header-info">
+        <div class="app-title">
+          <i class="fas fa-fish"></i>
+          <span>EWS</span>
+        </div>
+        <div class="user-info">
+          <span class="location" id="current-location">Dhaka</span>
+          <span class="month" id="current-month">September</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="fish-details-container">
+      <a href="index.html#tips" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Fish List
+      </a>
+      
+      <div id="fish-details-content">
+        <!-- Content will be loaded by JavaScript -->
+      </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <button
+        class="nav-btn active"
+        onclick="showSection('dashboard')"
+        data-section="dashboard"
+      >
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('calendar')"
+        data-section="calendar"
+      >
+        <i class="fas fa-calendar"></i>
+        <span>Calendar</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('tips')" data-section="tips">
+        <i class="fas fa-fish"></i>
+        <span>Fish Farming</span>
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('settings')"
+        data-section="settings"
+      >
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </button>
+    </nav>
+
+    <!-- Custom script to handle fish details page -->
+    <script>
+      // Define mockData if needed
+      if (typeof window.mockData === 'undefined') {
+        window.mockData = {
+          fishTips: {
+            "Rui": {
+              name: "রুই মাছ (Rui Fish)",
+              description: "A popular freshwater fish in Bangladesh with high nutritional value.",
+              details: "Rui fish is rich in protein and omega-3 fatty acids. It's a carp species native to rivers in South Asia."
+            },
+            "Katla": {
+              name: "কাতলা মাছ (Katla Fish)",
+              description: "A large freshwater fish popular in Bengali cuisine.",
+              details: "Katla is a surface and midwater feeder. It's one of the most important aquacultured freshwater fishes."
+            },
+            "Ilish": {
+              name: "ইলিশ মাছ (Hilsa Fish)",
+              description: "The national fish of Bangladesh with a distinctive flavor.",
+              details: "Hilsa is a migratory fish that moves from marine water to freshwater for spawning."
+            },
+            "Chingri": {
+              name: "চিংড়ি মাছ (Prawn)",
+              description: "A highly valued aquaculture product in Bangladesh.",
+              details: "Freshwater prawns are an important commercial species that thrive in both coastal and inland aquaculture systems."
+            },
+            "Pabda": {
+              name: "পাবদা মাছ (Pabda Fish)",
+              description: "A small indigenous fish species with excellent taste.",
+              details: "Pabda is rich in micronutrients and has a soft texture making it popular in traditional dishes."
+            },
+            "Pangash": {
+              name: "পাঙ্গাস মাছ (Pangasius Fish)",
+              description: "A fast-growing catfish species widely farmed in Bangladesh.",
+              details: "Pangasius is an economical fish that's easy to farm and has become popular in aquaculture."
+            }
+          }
+        };
+      }
+      
+      // Override initializeApp to prevent errors
+      function initializeApp() {
+        console.log("Fish details page loaded");
+      }
+      
+      // Override showSection to prevent errors
+      function showSection() {
+        console.log("Section navigation disabled on details page");
+      }
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get fish type from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const fishType = urlParams.get('fish');
+        
+        // Check if fish type exists in mockData
+        if (fishType && window.mockData && window.mockData.fishTips && window.mockData.fishTips[fishType]) {
+          const fish = window.mockData.fishTips[fishType];
+          const detailsContent = document.getElementById('fish-details-content');
+          
+          detailsContent.innerHTML = `
+            <div class="fish-header">
+              <h1>${fish.name}</h1>
+            </div>
+            
+            <img src="images/${fishType.toLowerCase()}.png" alt="${fish.name}" class="fish-image" ">
+            
+            <div class="fish-section">
+              <h3>Overview</h3>
+              <p>${fish.description}</p>
+            </div>
+            
+            <div class="fish-section">
+              <h3>Detailed Information</h3>
+              <p>${fish.details}</p>
+            </div>
+            
+            <div class="fish-section">
+              <h3>Farming Guidelines</h3>
+              <ul>
+                <li><strong>Water Quality:</strong> Maintain optimal pH levels between 7.0-8.5 for best growth.</li>
+                <li><strong>Feeding:</strong> Feed 2-3 times daily with appropriate fish feed based on size and age.</li>
+                <li><strong>Stocking Density:</strong> Maintain proper stocking density to prevent overcrowding.</li>
+                <li><strong>Disease Prevention:</strong> Regular monitoring for signs of disease and maintaining water quality.</li>
+                <li><strong>Harvesting:</strong> Harvest at optimal size for best market value.</li>
+              </ul>
+            </div>
+          `;
+          
+          // Update page title
+          document.title = `${fish.name} - Fish Details`;
+        } else {
+          // Handle invalid fish type
+          const detailsContent = document.getElementById('fish-details-content');
+          detailsContent.innerHTML = `
+            <div class="fish-section">
+              <h3>Error</h3>
+              <p>Fish information not found. Please go back and select a valid fish.</p>
+            </div>
+          `;
+        }
+      });
+    </script>
+  </body>
+</html>

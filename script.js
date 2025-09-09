@@ -38,7 +38,7 @@ const translations = {
     // Navigation
     home: "হোম",
     calendar: "ক্যালেন্ডার",
-    tips: "টিপস",
+    tips: "মাছ চাষ",
     settings: "সেটিংস",
     // Modal
     urgentAlerts: "জরুরি সতর্কতা",
@@ -125,23 +125,40 @@ const mockData = {
     ],
   },
   fishTips: {
-    Tilapia: {
-      1: "Monitor oxygen levels; feed twice daily.",
-      2: "Check pH balance.",
-      3: "Aerate water if needed.",
-      4: "Harvest if mature.",
+    // 5 Bangladeshi fishes with descriptions
+    Rui: {
+      name: "রুই মাছ (Rui Fish)",
+      description:
+        "A freshwater carp species native to rivers in Bangladesh. It's one of the most popular food fishes in the country.",
+      details:
+        "Rui fish (Labeo rohita) is a major carp species that thrives in freshwater ponds and rivers. It requires proper water quality management and regular feeding for optimal growth.",
     },
-    Carp: {
-      1: "Ensure water depth; add feed.",
-      2: "Watch for parasites.",
-      3: "Fertilize pond naturally.",
-      4: "Monitor growth.",
+    Katla: {
+      name: "কাতলা মাছ (Katla Fish)",
+      description:
+        "A large freshwater carp found in rivers and ponds throughout Bangladesh, known for its distinctive head.",
+      details:
+        "Katla (Catla catla) is a surface feeder that grows rapidly in well-managed ponds. It's highly valued for its taste and nutritional benefits in Bangladeshi cuisine.",
     },
-    Shrimp: {
-      1: "Salinity check; stock juveniles.",
-      2: "Feed plankton.",
-      3: "Aerate constantly.",
-      4: "Harvest post-molt.",
+    Chingri: {
+      name: "চিংড়ি মাছ (Prawn)",
+      description: "A highly valued aquaculture product in Bangladesh.",
+      details:
+        "Freshwater prawns are an important commercial species that thrive in both coastal and inland aquaculture systems.",
+    },
+    Pabda: {
+      name: "পাবদা মাছ (Pabda Fish)",
+      description:
+        "A small indigenous catfish species popular for its soft texture and delicate taste.",
+      details:
+        "Pabda (Ompok pabda) is a small catfish that requires careful management in aquaculture. It prefers slow-moving water and is highly valued in local markets.",
+    },
+    Pangash: {
+      name: "পাঙ্গাস মাছ (Pangasius Fish)",
+      description:
+        "A large catfish species widely farmed in Bangladesh for its fast growth rate and high yield.",
+      details:
+        "Pangasius (Pangasianodon hypophthalmus) is an economically important aquaculture species in Bangladesh. It's hardy, grows quickly, and adapts well to various farming conditions.",
     },
   },
   districtAlerts: [
@@ -283,18 +300,22 @@ function loadDashboard() {
       </div>`;
   }
 
-  // Today's Tip
-  const currentWeek = Math.ceil(new Date().getDate() / 7);
-  const tip = mockData.fishTips.Tilapia[currentWeek] || mockData.fishTips.Tilapia[1];
+  // Today's Tip - Fish Farming
+  // Get a random fish from our list for the dashboard tip
+  const fishTypes = Object.keys(mockData.fishTips);
+  const randomFish = fishTypes[Math.floor(Math.random() * fishTypes.length)];
+  const fishInfo = mockData.fishTips[randomFish];
+
   const todayTipEl = document.getElementById("today-tip");
   if (todayTipEl && t && t.todaysTip) {
     todayTipEl.innerHTML = `
       <div class="tip-content">
         <div class="tip-header">
-          <span class="fish-badge">Tilapia</span>
-          <span class="week-badge">Week ${currentWeek}</span>
+          <span class="fish-badge">${fishInfo.name}</span>
+          <span class="week-badge">Fish Farming</span>
         </div>
-        <div class="tip-text">${tip}</div>
+        <div class="tip-text">${fishInfo.description}</div>
+        <a href="fish-details.html?fish=${randomFish}" class="tip-link">View Details</a>
       </div>`;
   }
 
@@ -433,35 +454,91 @@ function loadCalendar() {
   update(); // Initial load
 }
 
-// Load Tips
+// Load Tips - Fish Farming Accordion List
 function loadTips() {
   const fishSelect = document.getElementById("fish-select");
-  const weekSelect = document.getElementById("week-select");
   const details = document.getElementById("tips-details");
-  function update() {
-    const fish = fishSelect.value;
-    const week = weekSelect.value;
-    const tip = mockData.fishTips[fish][week];
+
+  // Function to create accordion list of all fish
+  function createAccordionList() {
+    let accordionHTML = '<div class="fish-accordion">';
+
+    // Get all fish types
+    const fishTypes = Object.keys(mockData.fishTips);
+
+    // Create accordion items for each fish
+    fishTypes.forEach((fishType) => {
+      const fish = mockData.fishTips[fishType];
+      accordionHTML += `
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <h3><i class="fas fa-fish"></i> ${fish.name}</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="fish-description">
+              <p>${fish.description}</p>
+              <button class="details-btn" onclick="showFishDetails('${fishType}')">View Details</button>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    accordionHTML += "</div>";
+    details.innerHTML = accordionHTML;
+  }
+
+  // Function to show selected fish
+  function showSelectedFish() {
+    const fish = mockData.fishTips[fishSelect.value];
     details.innerHTML = `
       <div class="card">
         <div class="card-header">
-          <h3><i class="fas fa-fish"></i> ${fish} Management - Week ${week}</h3>
-          <span class="status-badge">September 2025</span>
+          <h3><i class="fas fa-fish"></i> ${fish.name}</h3>
+          <span class="status-badge">Fish Farming</span>
         </div>
         <div class="card-content">
           <div style="background: linear-gradient(135deg, #48bb78 0%, #38b2ac 100%); color: white; padding: 16px; border-radius: 12px; margin-bottom: 15px;">
-            <i class="fas fa-lightbulb"></i> <strong>Recommended Action:</strong>
-            <p style="margin: 8px 0 0 0; font-size: 16px;">${tip}</p>
+            <p style="margin: 8px 0 0 0; font-size: 16px;">${fish.description}</p>
           </div>
-          <div style="background: #f8f9fa; padding: 12px; border-radius: 8px;">
-            <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Follow local weather conditions and adjust practices accordingly.</p>
+          <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+            <p><i class="fas fa-info-circle"></i> <strong>Details:</strong> ${fish.details}</p>
           </div>
+          <button class="btn primary-btn" onclick="createAccordionList()">Back to List</button>
         </div>
       </div>`;
   }
-  fishSelect.onchange = update;
-  weekSelect.onchange = update;
-  update(); // Initial load
+
+  // Add global functions for accordion and details
+  window.toggleAccordion = function (element) {
+    const content = element.nextElementSibling;
+    const isActive = element.classList.contains("active");
+
+    // Close all accordion items
+    const allHeaders = document.querySelectorAll(".accordion-header");
+    allHeaders.forEach((header) => {
+      header.classList.remove("active");
+      header.nextElementSibling.style.maxHeight = null;
+    });
+
+    // Toggle current item if it wasn't active
+    if (!isActive) {
+      element.classList.add("active");
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  };
+
+  window.showFishDetails = function (fishType) {
+    // Navigate to fish details page with fish type as parameter
+    window.location.href = `fish-details.html?fish=${fishType}`;
+  };
+
+  // Initialize with accordion list
+  createAccordionList();
+
+  // Update when fish selection changes
+  fishSelect.onchange = showSelectedFish;
 }
 
 // Load District & Weather
@@ -770,40 +847,40 @@ function initializeApp() {
     appSettings.currentMonth = getCurrentMonth();
   }
 
-// Apply language and initialize app
-try {
-  // Apply language settings immediately
-  applyLanguage(appSettings.language);
-  
-  // Load settings and dashboard
-  loadSettings();
-  loadDashboard();
+  // Apply language and initialize app
+  try {
+    // Apply language settings immediately
+    applyLanguage(appSettings.language);
 
-  // Check if first time visit
-  const isFirstLoad = localStorage.getItem("isFirstLoad") !== "false";
+    // Load settings and dashboard
+    loadSettings();
+    loadDashboard();
 
-  if (isFirstLoad) {
-    // First time users see settings
-    localStorage.setItem("isFirstLoad", "false");
-    showSection("settings");
-  } else {
-    // Returning users see dashboard with alerts
-    showSection("dashboard");
-    if (typeof showAlertModal === "function") {
-      showAlertModal();
+    // Check if first time visit
+    const isFirstLoad = localStorage.getItem("isFirstLoad") !== "false";
+
+    if (isFirstLoad) {
+      // First time users see settings
+      localStorage.setItem("isFirstLoad", "false");
+      showSection("settings");
+    } else {
+      // Returning users see dashboard with alerts
+      showSection("dashboard");
+      if (typeof showAlertModal === "function") {
+        showAlertModal();
+      }
     }
-  }
 
-  // Set up modal close button
-  const closeBtn = document.querySelector(".close-btn");
-  if (closeBtn && typeof closeAlertModal === "function") {
-    closeBtn.addEventListener("click", closeAlertModal);
+    // Set up modal close button
+    const closeBtn = document.querySelector(".close-btn");
+    if (closeBtn && typeof closeAlertModal === "function") {
+      closeBtn.addEventListener("click", closeAlertModal);
+    }
+  } catch (error) {
+    console.error("Error initializing app:", error);
+    // Fallback to dashboard on error
+    showSection("dashboard");
   }
-} catch (error) {
-  console.error("Error initializing app:", error);
-  // Fallback to dashboard on error
-  showSection("dashboard");
-}
 }
 
 // Initial Load
